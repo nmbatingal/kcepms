@@ -5,4 +5,3 @@ backend:  admin      ----- dswd123$
 
 dbase: access site:: 172.26.158.250/admin/phpmyadmin
 	  nmbatingal ----- dswd123$
-kjkjkj
