@@ -100,13 +100,12 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            //return $this->goHome();
-            $this->redirect(Yii::$app->urlManager->createUrl(['site/login']));
+            return $this->goHome();
+            //$this->redirect(Yii::$app->urlManager->createUrl(['site/login']));
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
             return $this->goHome();
         } else {
             return $this->render('login', [
@@ -124,8 +123,8 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        //return $this->goHome();
-        $this->redirect(Yii::$app->urlManager->createUrl(['site/login']));
+        return $this->goHome();
+        //$this->redirect(Yii::$app->urlManager->createUrl(['site/login']));
     }
 
     /**

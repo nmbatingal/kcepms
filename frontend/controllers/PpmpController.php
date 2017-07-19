@@ -40,6 +40,10 @@ class PpmpController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $searchModel = new PpmpSearch();
         $searchModel->ppmp_unit_id  = 1;
         $searchModel->year          = 2017;
@@ -74,6 +78,10 @@ class PpmpController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -86,6 +94,10 @@ class PpmpController extends Controller
      */
     public function actionCreate() 
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = new Ppmp();
 
         if ( Yii::$app->request->isAjax ) {
@@ -106,7 +118,12 @@ class PpmpController extends Controller
         }
     }
 
-    public function actionCreatePpmp(){
+    public function actionCreatePpmp()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $result     = false;
         $ppmpData   = Yii::$app->request->post('Ppmp');
 
@@ -149,6 +166,10 @@ class PpmpController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -168,6 +189,10 @@ class PpmpController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -182,6 +207,10 @@ class PpmpController extends Controller
      */
     protected function findModel($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         if (($model = Ppmp::findOne($id)) !== null) {
             return $model;
         } else {
@@ -191,6 +220,10 @@ class PpmpController extends Controller
 
     public function actionPpmpList()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $itemType   = isset($_POST['itemType']) ? $_POST['itemType'] : '';
         $program    = isset($_POST['program']) ? $_POST['program'] : '';
         $date       = isset($_POST['date']) ? $_POST['date'] : '';
@@ -242,6 +275,10 @@ class PpmpController extends Controller
 
     public function actionPpmpListItems()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        
         $ppmp_id    = isset($_POST['ppmp_id']) ? $_POST['ppmp_id'] : '';
 
         $connection = Yii::$app->getDb();

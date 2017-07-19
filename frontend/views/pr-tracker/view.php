@@ -160,7 +160,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'=>'kv-align-center kv-align-middle',
                 ],
                 'contentOptions' => [
-                    'class'=>'kv-align-center kv-align-middle',
+                    'class'=>'kv-align-right kv-align-middle',
+                    'style'=>'padding-right:15px;'
                 ],
                 'width'=>'120px',
             ],

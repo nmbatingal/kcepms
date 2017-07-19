@@ -44,6 +44,10 @@ class PrTrackerController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $searchModel = new PrTrackerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $query = PrTracker::find()
@@ -81,12 +85,15 @@ class PrTrackerController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $searchModel             = new PrReportSearch();
         $searchModel->tracker_id = $id;
         $dataProvider            = $searchModel->search(Yii::$app->request->queryParams);
         $model                   = $this->findModel($id);
         
-
         if ( Yii::$app->request->isAjax ) {
 
             $html =  $this->renderAjax('view', [
@@ -118,14 +125,20 @@ class PrTrackerController extends Controller
      */
     public function actionCreate()
     {
-        $model = new PrTracker();
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
 
-        if ($model->load(Yii::$app->request->post())) {
+        //$model = new PrTracker();
+        $result = false;
+        $tracker = Yii::$app->request->post('PrTracker');
 
-            $code = explode("|", $model->unit_responsible);   // PARSE DATE
-            $date = explode("-", $model->date_created);   // PARSE DATE
-            $model->tracker_year    = $date[0];    // RETURNS YEAR (yyyy)
-            $model->tracker_month   = $date[1];   // RETURNS MONTH (mm)
+        if ( $tracker ) {
+
+            $model = new PrTracker();
+
+            $code = explode("|", $tracker['unit_responsible']);   // PARSE DATE
+            $date = explode("-", $tracker['date_created']);   // PARSE DATE
 
             $sequence = PrTracker::getTrackerCount();
             $tracknum = PrTracker::getTrackerNo();
@@ -138,20 +151,35 @@ class PrTrackerController extends Controller
             } else {
                  $model->tracker_seq = '0001';
             }
-
+            
+            $model->tracker_year        = $date[0];    // RETURNS YEAR (yyyy)
+            $model->tracker_month       = $date[1];   // RETURNS MONTH (mm)
             $model->responsibility_code = $code[0];
             $model->unit_responsible    = $code[1];
             $model->tracker_no          = 'KC-'.$date[0].'-'.$date[1].'-'.$model->tracker_seq;
-            $model->date_created        = $model->date_created . ' ' . date("H:i:s");
-            $model->save();
+            $model->date_created        = $tracker['date_created'] . ' ' . date("H:i:s");
+            $model->date_updated        = $tracker['date_updated'];
+            $model->tracker_title       = $tracker['tracker_title'];
+            $model->proponent           = $tracker['proponent'];
+            $model->encoder             = $tracker['encoder'];
+            
+            if ( $model->save() ) {
+                $result = true;
+            }
 
-            return $this->redirect(['view', 'id' => $model->pr_tracker_id]);
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            //return $this->redirect(['view', 'id' => $model->pr_tracker_id]);
+            return [
+                'result' => $result,
+                'model'  => $model,
+                'url'    => Url::toRoute(['view', 'id' => $model->pr_tracker_id]),
+            ];
 
-        } else {
+        } /*else {
             return $this->render('create', [
                 'model' => $model,
             ]);
-        }
+        }*/
     }
 
     /**
@@ -162,15 +190,43 @@ class PrTrackerController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->isAjax) {
+
+            $html = $this->renderAjax('update', [
+                'model' => $model,
+            ]);
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'html'  => $html,
+                'url'   => Url::toRoute(['update', 'id' => $id]),
+                'title' => 'Update Tracker',
+            ];
+
+        } elseif ($model->load(Yii::$app->request->post())) {
+
+            $model->save();
+            //Yii::$app->response->format = Response::FORMAT_JSON;
+
+            Yii::$app->session->setFlash('success', 'Updated Successfully');
             return $this->redirect(['view', 'id' => $model->pr_tracker_id]);
+
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionUpdateTracker($id)
+    {
+
     }
 
     /**
@@ -181,9 +237,25 @@ class PrTrackerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
 
-        return $this->redirect(['index']);
+        $model  = $this->findModel($id);
+        $result = false;
+
+        if ( Yii::$app->request->isAjax ) {
+
+            if ( $model->delete() ) $result = true;
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+                'model'  => $model,
+            ];
+
+        }
+        //return $this->redirect(['index']);
     }
 
     /**
@@ -202,7 +274,11 @@ class PrTrackerController extends Controller
         }
     }
 
-    public function actionCreateItems() {
+    public function actionCreateItems() 
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
 
         $pr         = new PrReport();
         $pr_items   = new PrItemDetails();

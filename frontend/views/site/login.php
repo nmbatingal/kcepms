@@ -53,6 +53,7 @@ $fieldOptions2 = [
         <div class="social-auth-links text-center">
             <p>- OR -</p>
             <?= Html::button('Sign in using Admin account', ['class' => 'btn btn-block btn-flat btn-primary', 'onclick' => 'changeUrl(this)' ]) ?>
+            <?= Html::a('Login as Guest', ['site/index'], ['class' => 'btn btn-block btn-flat btn-primary']) ?>
         </div>
 
         <?= Html::a('I forgot my password', ['site/request-password-reset']) ?><br>

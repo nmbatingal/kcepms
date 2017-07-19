@@ -86,7 +86,16 @@ $this->params['breadcrumbs'][] = 'Tracker';
             [
                 'label' => 'Tracking Number',
                 'mergeHeader' => true,
-                'value' => 'tracker_no',
+                'value'=> function($model) {
+
+                    return Html::a( '<b>'. $model->tracker_no .'</b>',
+                            Url::toRoute(['view', 'id'=>$model['pr_tracker_id']]),
+                            [
+                                'class'=> 'btn-link-page',
+                            ]
+                        );
+                },
+                'format' => 'raw',
                 'headerOptions'=>[
                     'class'=>'kv-align-center kv-align-middle',
                 ],
@@ -178,14 +187,23 @@ $this->params['breadcrumbs'][] = 'Tracker';
                 'contentOptions' => [
                     'class'=>'kv-align-center kv-align-middle',
                 ],
-                'template'=>'{view}&nbsp;{update}&nbsp;{delete}',
+                'template'=>'{update}&nbsp;{delete}',
                 'buttons' => [
-                    'view'=> function ($url, $model) {
-                        return Html::a( '<i class="glyphicon glyphicon-eye-open"></i>',
-                                Url::toRoute(['view', 'id'=>$model['pr_tracker_id']]),
+                    'update'=> function ($url, $model) {
+                        return Html::a( '<i class="glyphicon glyphicon-pencil"></i>',
+                                Url::toRoute(['update', 'id'=>$model['pr_tracker_id']]),
                                 [
-                                    'class'=> 'btn btn-xs btn-warning btn-link-page',
-                                    'title' => 'view tracker',
+                                    'class'=> 'btn btn-sm btn-primary btn-link-page',
+                                    'title' => 'update tracker',
+                                ]
+                            );
+                    },
+                    'delete'=> function ($url, $model) {
+                        return Html::a( '<i class="glyphicon glyphicon-trash"></i>',
+                                Url::toRoute(['delete', 'id'=>$model['pr_tracker_id']]),
+                                [
+                                    'class'=> 'btn btn-sm btn-danger btn-delete-tracker',
+                                    'title' => 'delete tracker',
                                 ]
                             );
                     },
@@ -278,7 +296,7 @@ $this->params['breadcrumbs'][] = 'Tracker';
                     <div id="modal-content">
                         
                         <div class="row">
-                            <div class="col-md-2 col-md-offset-10">
+                            <div class="col-md-4 col-md-offset-8">
                                 <?= $form->field($model, 'date_created')->widget(DatePicker::classname(), [
                                     'type' => DatePicker::TYPE_INPUT,
                                     'removeButton' => false,

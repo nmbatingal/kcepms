@@ -43,6 +43,10 @@ class PrReportController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $searchModel = new PrReportSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -59,6 +63,10 @@ class PrReportController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model    = $this->findModel($id);
 
         if ( $model['pr_type'] == 0 ) {
@@ -110,6 +118,10 @@ class PrReportController extends Controller
 
     public function actionCreate() 
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $result     = false;
         $pr_report  = Yii::$app->request->post('PrReport');
         $pr_items   = Yii::$app->request->post('PrItemDetails');
@@ -215,6 +227,10 @@ class PrReportController extends Controller
 
     public function actionCreateSppmp() 
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $result     = false;
         $pr_report  = Yii::$app->request->post('PrReport');
         $pr_items   = Yii::$app->request->post('PrItemSppmpDetails');
@@ -322,6 +338,10 @@ class PrReportController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -341,6 +361,10 @@ class PrReportController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -355,6 +379,7 @@ class PrReportController extends Controller
      */
     protected function findModel($id)
     {
+
         if (($model = PrReport::findOne($id)) !== null) {
             return $model;
         } else {
@@ -363,6 +388,10 @@ class PrReportController extends Controller
     }
 
     public function actionPrintPr($id) {
+        
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
 
         $model    = $this->findModel($id);
         if ( $model['pr_type'] == 0 ) {
@@ -371,7 +400,7 @@ class PrReportController extends Controller
             $pr_items = PrItemSppmpDetails::findAll(['pr_id' => $model['pr_id']]);
         }
 
-        return $this->renderPartial('_print-pr', [
+        return $this->renderAjax('_print-pr', [
             'model'    => $model,
             'pr_items' => $pr_items,
         ]);

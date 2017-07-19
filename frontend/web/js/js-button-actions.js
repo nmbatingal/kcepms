@@ -202,6 +202,79 @@ $(document).on('click','.show_more',function(){
     }); 
 });
 
+/*** BUTTON UPDATE PR TRACKER ***/
+$(document).on('beforeSubmit', '#frm-create-tracker', function(event, jqXHR, settings) {    
+    event.preventDefault();
+    var form = $(this);
+    
+    $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: form.serialize(),
+        success: function(data) {
+
+            if (data.result) {
+                swal({
+                    title: 'Tracker Saved!',
+                    text:  'Tracker Number: ' + data.model['tracker_no'],
+                    type:  "success",
+                    showCancelButton: false,
+                    closeOnConfirm: false,
+                }, function () {
+                    window.open(data.url, '_self');
+                });
+            } else {
+                swal("Error!", "Tracker information failed to save!", "error");
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){
+            swal("System Error!", "Please try again", "error");
+        }
+    });
+
+    return false;
+});
+
+/*** BUTTON DELETE PR TRACKER ***/
+$(document).on('click', '.btn-delete-tracker', function(event, jqXHR, settings) {
+    event.preventDefault();
+    var button = $(this);
+    var row    = button.closest('tr');
+
+    swal({
+        title: 'Are you sure?',
+        text:  'You will not be able to recover this tracker!',
+        type:  "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+    }, function (isConfirm) {
+        if (!isConfirm) return;
+        $.ajax({
+            url: button.attr('href'),
+            type: "POST",
+            success: function (data) {
+                if (data.result) {
+                    swal("Done!", data.model['tracker_no'] + " was successfully deleted!", "success");
+                    
+                    row.hide('slow', function() { 
+                        row.remove();
+                    });
+
+                } else {
+                    swal("Error deleting!", "Please try again", "error");
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+            }
+        });
+    });
+
+});
+
 /*** PR ITEMS SELECT LABEL OPTIONS ***/
 $(document).on('change','.select-label',function(event, jqXHR, settings) {
     var option   = this.value;

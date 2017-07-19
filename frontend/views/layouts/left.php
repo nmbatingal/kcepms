@@ -70,14 +70,15 @@
                         'label' => 'PPMP',
                         'icon'  => 'calendar-check-o',
                         'url' => '#',
+                        'visible' => !Yii::$app->user->isGuest,
                         'options' => ['class' => 'btn-left-menu-many'],
                         'items' => [
                             ['label' => 'PPMP 2017', 'icon' => 'circle-o', 'url' => ['ppmp/index'], 'options' => ['class' => 'btn-left-menu-child']],
                         ],
                     ],
-                    ['label' => 'Tracker', 'icon' => 'list-ul', 'url' => ['pr-tracker/index'], 'options' => ['class' => 'btn-left-menu']],
+                    ['label' => 'Tracker', 'icon' => 'list-ul', 'url' => ['pr-tracker/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     //['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
-                    //['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                 ],
             ]
         ) ?>
