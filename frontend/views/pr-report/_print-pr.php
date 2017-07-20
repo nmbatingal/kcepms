@@ -97,6 +97,10 @@ use yii\helpers\ArrayHelper;
         .page {
             margin: 0mm !important;
         }
+
+        .no-print {
+            display: none;
+        }
     }
 
     input[name=rb_name],
@@ -117,10 +121,14 @@ use yii\helpers\ArrayHelper;
         text-align: center;
         background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     }
-
 </style>
 
 <body>
+
+    <div class="no-print">
+        <?= Html::button('<i class="fa fa-print"></i>Print', ['onclick' => 'window.print()']) ?>
+    </div>
+
     <div class="page">
         <div class="print-page">
             <table class="table table-pr">
