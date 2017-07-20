@@ -1,0 +1,156 @@
+/*
+ * Skin: Yellow
+ * ------------
+ */
+.skin-inspinia-light .main-header .navbar {
+  background-color: #1ab394 !important;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 
+              0 3px 1px -2px rgba(0, 0, 0, 0.2), 
+              0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.skin-inspinia-light .main-header .navbar .nav > li > a {
+  color: #ffffff;
+}
+.skin-inspinia-light .main-header .navbar .nav > li > a:hover,
+.skin-inspinia-light .main-header .navbar .nav > li > a:active,
+.skin-inspinia-light .main-header .navbar .nav > li > a:focus,
+.skin-inspinia-light .main-header .navbar .nav .open > a,
+.skin-inspinia-light .main-header .navbar .nav .open > a:hover,
+.skin-inspinia-light .main-header .navbar .nav .open > a:focus,
+.skin-inspinia-light .main-header .navbar .nav > .active > a {
+  background: rgba(0, 0, 0, 0.1);
+  color: #f6f6f6;
+}
+.skin-inspinia-light .main-header .navbar .sidebar-toggle {
+  color: #ffffff;
+}
+.skin-inspinia-light .main-header .navbar .sidebar-toggle:hover {
+  color: #f6f6f6;
+  background: rgba(0, 0, 0, 0.1);
+}
+.skin-inspinia-light .main-header .navbar .sidebar-toggle {
+  color: #fff;
+}
+.skin-inspinia-light .main-header .navbar .sidebar-toggle:hover {
+  background-color: #e08e0b;
+}
+@media (max-width: 767px) {
+  .skin-inspinia-light .main-header .navbar .dropdown-menu li.divider {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .skin-inspinia-light .main-header .navbar .dropdown-menu li a {
+    color: #fff;
+  }
+  .skin-inspinia-light .main-header .navbar .dropdown-menu li a:hover {
+    background: #e08e0b;
+  }
+}
+.skin-inspinia-light .main-header .logo {
+  background-color: #f39c12;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+.skin-inspinia-light .main-header .logo:hover {
+  background-color: #f39a0d;
+}
+.skin-inspinia-light .main-header li.user-header {
+  background-color: #f39c12;
+}
+.skin-inspinia-light .content-header {
+  background: transparent;
+}
+.skin-inspinia-light .wrapper,
+.skin-inspinia-light .main-sidebar,
+.skin-inspinia-light .left-side {
+  background-color: #f9fafc;
+}
+.skin-inspinia-light .content-wrapper,
+.skin-inspinia-light .main-footer {
+  border-left: 1px solid #d2d6de;
+}
+.skin-inspinia-light .user-panel > .info,
+.skin-inspinia-light .user-panel > .info > a {
+  color: #444444;
+}
+.skin-inspinia-light .sidebar-menu > li {
+  -webkit-transition: border-left-color 0.3s ease;
+  -o-transition: border-left-color 0.3s ease;
+  transition: border-left-color 0.3s ease;
+}
+.skin-inspinia-light .sidebar-menu > li.header {
+  color: #848484;
+  background: #f9fafc;
+}
+.skin-inspinia-light .sidebar-menu > li > a {
+  border-left: 3px solid transparent;
+  font-weight: 600;
+}
+.skin-inspinia-light .sidebar-menu > li:hover > a,
+.skin-inspinia-light .sidebar-menu > li.active > a {
+  color: #000000;
+  background: #f4f4f5;
+}
+.skin-inspinia-light .sidebar-menu > li.active {
+  border-left-color: #f39c12;
+}
+.skin-inspinia-light .sidebar-menu > li.active > a {
+  font-weight: 600;
+}
+.skin-inspinia-light .sidebar-menu > li > .treeview-menu {
+  background: #f4f4f5;
+}
+.skin-inspinia-light .sidebar a {
+  color: #444444;
+}
+.skin-inspinia-light .sidebar a:hover {
+  text-decoration: none;
+}
+.skin-inspinia-light .treeview-menu > li > a {
+  color: #777777;
+}
+.skin-inspinia-light .treeview-menu > li.active > a,
+.skin-inspinia-light .treeview-menu > li > a:hover {
+  color: #000000;
+}
+.skin-inspinia-light .treeview-menu > li.active > a {
+  font-weight: 600;
+}
+.skin-inspinia-light .sidebar-form {
+  border-radius: 3px;
+  border: 1px solid #d2d6de;
+  margin: 10px 10px;
+}
+.skin-inspinia-light .sidebar-form input[type="text"],
+.skin-inspinia-light .sidebar-form .btn {
+  box-shadow: none;
+  background-color: #fff;
+  border: 1px solid transparent;
+  height: 35px;
+}
+.skin-inspinia-light .sidebar-form input[type="text"] {
+  color: #666;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+}
+.skin-inspinia-light .sidebar-form input[type="text"]:focus,
+.skin-inspinia-light .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #fff;
+  color: #666;
+}
+.skin-inspinia-light .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left-color: #fff;
+}
+.skin-inspinia-light .sidebar-form .btn {
+  color: #999;
+  border-top-left-radius: 0;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 0;
+}
+@media (min-width: 768px) {
+  .skin-inspinia-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
+    border-left: 1px solid #d2d6de;
+  }
+}
