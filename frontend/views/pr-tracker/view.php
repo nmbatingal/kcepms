@@ -48,7 +48,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pr-tracker-view content-body">
 
     <div class="box box-solid">
-        <div class="box-body no-padding">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+            <div class="box-tools pull-right">
+                <?= Html::a( '<i class="glyphicon glyphicon-pencil"></i>',
+                    Url::toRoute(['update', 'id'=>$model['pr_tracker_id']]),
+                    [
+                        'class'=> 'btn btn-sm btn-primary btn-link-page',
+                        'title' => 'update tracker',
+                    ]) ?>
+            </div>
+        </div>
+        <div class="box-footer no-padding">
             <?= DetailView::widget([
                     'model'=>$model,
                     'condensed'=>true,
@@ -160,7 +171,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'=>'kv-align-center kv-align-middle',
                 ],
                 'contentOptions' => [
-                    'class'=>'kv-align-center kv-align-middle',
+                    'class'=>'kv-align-right kv-align-middle',
+                    'style'=>'padding-right:15px;'
                 ],
                 'width'=>'120px',
             ],

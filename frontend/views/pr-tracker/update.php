@@ -10,9 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Pr Trackers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->pr_tracker_id, 'url' => ['view', 'id' => $model->pr_tracker_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="pr-tracker-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="pr-tracker-update content-body">
 
     <?= $this->render('_form', [
         'model' => $model,

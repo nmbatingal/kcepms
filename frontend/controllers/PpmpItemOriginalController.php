@@ -41,6 +41,10 @@ class PpmpItemOriginalController extends Controller
      */
     public function actionIndex($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = Ppmp::findOne(['ppmp_id'=>$id]);
         $searchModel = new PpmpItemOriginalSearch();
         $searchModel->ppmp_id = $id;
@@ -80,6 +84,10 @@ class PpmpItemOriginalController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -92,6 +100,10 @@ class PpmpItemOriginalController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = new PpmpItemOriginal();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -111,6 +123,10 @@ class PpmpItemOriginalController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -124,6 +140,10 @@ class PpmpItemOriginalController extends Controller
 
     public function actionPartialUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -150,6 +170,10 @@ class PpmpItemOriginalController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -173,6 +197,10 @@ class PpmpItemOriginalController extends Controller
 
     public function actionPerItem($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = $this->findModel($id);
 
         Yii::$app->response->format = Response::FORMAT_JSON;
