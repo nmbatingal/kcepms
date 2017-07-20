@@ -129,7 +129,6 @@ class PrTrackerController extends Controller
             return $this->goHome();
         }
 
-        //$model = new PrTracker();
         $result = false;
         $tracker = Yii::$app->request->post('PrTracker');
 
@@ -137,7 +136,7 @@ class PrTrackerController extends Controller
 
             $model = new PrTracker();
 
-            $code = explode("|", $tracker['unit_responsible']);   // PARSE DATE
+            $code = explode("|", $tracker['unit_responsible']);   // PARSE CODE
             $date = explode("-", $tracker['date_created']);   // PARSE DATE
 
             $sequence = PrTracker::getTrackerCount();
@@ -168,18 +167,13 @@ class PrTrackerController extends Controller
             }
 
             Yii::$app->response->format = Response::FORMAT_JSON;
-            //return $this->redirect(['view', 'id' => $model->pr_tracker_id]);
             return [
                 'result' => $result,
                 'model'  => $model,
                 'url'    => Url::toRoute(['view', 'id' => $model->pr_tracker_id]),
             ];
 
-        } /*else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }*/
+        }
     }
 
     /**
@@ -226,7 +220,32 @@ class PrTrackerController extends Controller
 
     public function actionUpdateTracker($id)
     {
+        $result = false;
+        $model = $this->findModel($id);
+        $tracker = Yii::$app->request->post('PrTracker');
 
+        if ( $tracker ) {
+
+            $code = explode("|", $tracker['unit_responsible']);   // PARSE CODE
+
+            $model->responsibility_code = $code[0];
+            $model->unit_responsible    = $code[1];
+            $model->tracker_title       = $tracker['tracker_title'];
+            $model->proponent           = $tracker['proponent'];
+            $model->date_updated        = $tracker['date_updated'];
+            
+            if ( $model->save() ) {
+                $result = true;
+            }
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+                'model'  => $model,
+                'url'    => Url::toRoute(['view', 'id' => $model->pr_tracker_id]),
+            ];
+
+        }
     }
 
     /**
@@ -246,7 +265,9 @@ class PrTrackerController extends Controller
 
         if ( Yii::$app->request->isAjax ) {
 
-            if ( $model->delete() ) $result = true;
+            //if ( $model->delete() ) $result = true;
+            $model->status = 0;
+            if ( $model->save() ) $result = true;
 
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [

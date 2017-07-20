@@ -63,6 +63,8 @@ class PrTrackerSearch extends PrTracker
         }
 
         // grid filtering conditions
+        $query->andWhere(['status' => '1']);
+        
         $query->andFilterWhere([
             'pr_tracker_id' => $this->pr_tracker_id,
             'tracker_year' => $this->tracker_year,

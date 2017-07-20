@@ -286,7 +286,6 @@ $this->params['breadcrumbs'][] = 'Tracker';
                                                 AND b.division_id = a.division_id";
                 $connection = Yii::$app->getDb();
                 $command = $connection->createCommand($sql);
-
                 $result = $command->queryAll();
 
                 $model->unit_responsible = "20-001-03-00016-00003-02-03|OPD/PRPU/CDDKC";

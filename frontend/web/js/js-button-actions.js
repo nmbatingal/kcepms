@@ -202,7 +202,7 @@ $(document).on('click','.show_more',function(){
     }); 
 });
 
-/*** BUTTON UPDATE PR TRACKER ***/
+/*** BUTTON CREATE PR TRACKER ***/
 $(document).on('beforeSubmit', '#frm-create-tracker', function(event, jqXHR, settings) {    
     event.preventDefault();
     var form = $(this);
@@ -215,8 +215,8 @@ $(document).on('beforeSubmit', '#frm-create-tracker', function(event, jqXHR, set
 
             if (data.result) {
                 swal({
-                    title: 'Tracker Saved!',
-                    text:  'Tracker Number: ' + data.model['tracker_no'],
+                    title: 'Done!',
+                    text:  'Tracker Number ' + data.model['tracker_no'] +' successfully created!',
                     type:  "success",
                     showCancelButton: false,
                     closeOnConfirm: false,
@@ -235,6 +235,56 @@ $(document).on('beforeSubmit', '#frm-create-tracker', function(event, jqXHR, set
     return false;
 });
 
+/*** BUTTON UPDATE PR TRACKER ***/
+$(document).on('beforeSubmit', '#frm-update-tracker', function(event, jqXHR, settings) {    
+    event.preventDefault();
+    var form = $(this);
+    
+    $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: form.serialize(),
+        success: function(data) {
+
+            if (data.result) {
+                swal({
+                    title: 'Done!',
+                    text:  'Tracker Number ' + data.model['tracker_no'] +' successfully updated!',
+                    type:  "success",
+                    showCancelButton: false,
+                    closeOnConfirm: true,
+                }, function () {
+
+                    $('.content-wrapper').html(spinRefresh());
+
+                    $.ajax({
+                        url: data.url,
+                        type: 'GET',
+                        success: function(data) {
+
+                            $('.content-wrapper').html(data.html);
+                            $(document).prop('title', data.title);
+                            window.history.pushState(null, data.url, data.url);
+                        },
+                        error: function(xhr, textStatus, errorThrown){
+                            alert('request failed');
+                            console.log(errorThrown);
+                        }
+                    });
+
+                });
+            } else {
+                swal("Error!", "Tracker information failed to update!", "error");
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){
+            swal("System Error!", "Please try again", "error");
+        }
+    });
+
+    return false;
+});
+
 /*** BUTTON DELETE PR TRACKER ***/
 $(document).on('click', '.btn-delete-tracker', function(event, jqXHR, settings) {
     event.preventDefault();
@@ -243,11 +293,10 @@ $(document).on('click', '.btn-delete-tracker', function(event, jqXHR, settings) 
 
     swal({
         title: 'Are you sure?',
-        text:  'You will not be able to recover this tracker!',
         type:  "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Yes, remove tracker!",
         closeOnConfirm: false,
         showLoaderOnConfirm: true
     }, function (isConfirm) {
@@ -257,18 +306,18 @@ $(document).on('click', '.btn-delete-tracker', function(event, jqXHR, settings) 
             type: "POST",
             success: function (data) {
                 if (data.result) {
-                    swal("Done!", data.model['tracker_no'] + " was successfully deleted!", "success");
+                    swal("Done!", data.model['tracker_no'] + " was successfully removed!", "success");
                     
                     row.hide('slow', function() { 
                         row.remove();
                     });
 
                 } else {
-                    swal("Error deleting!", "Please try again", "error");
+                    swal("Error!", "Failed to remove the tracker", "error");
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                swal("Error deleting!", "Please try again", "error");
+                swal("Error!", "Please try again", "error");
             }
         });
     });
