@@ -28,9 +28,7 @@ use yii\widgets\ActiveForm;
                 WHERE d.section_id = c.section_id
                 AND c.unit_id = b.unit_id
                 AND b.division_id = a.division_id";
-    $connection = Yii::$app->getDb();
-    $command    = $connection->createCommand($sql);
-    $result     = $command->queryAll();
+    $result = Yii::$app->getDb()->createCommand($sql)->queryAll();
 
     $model->unit_responsible = $model->responsibility_code.'|'.$model->unit_responsible;
     $model->date_updated     = date("Y-m-d H:i:s");

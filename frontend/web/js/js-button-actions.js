@@ -980,7 +980,16 @@ $(document).on('beforeSubmit', '#frm-update-pr', function(event, jqXHR, settings
 $(document).on('click','#btn-print-pr',function(event, jqXHR, settings) {
     event.preventDefault();
     var $href  = $(this).attr('href');
-    var target = window.open( $href, 'PR','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=800,height=800');
+    var target = window.open( $href, 'Print','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=800,height=800');
+
+    target.print();
+});
+
+/*** BUTTON PRINT SPPMP ***/
+$(document).on('click','#btn-print-sppmp',function(event, jqXHR, settings) {
+    event.preventDefault();
+    var $href  = $(this).attr('href');
+    var target = window.open( $href, 'Print','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1200,height=700');
 
     target.print();
 });

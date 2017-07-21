@@ -18,6 +18,7 @@ use common\models\LibDivision;
 use common\models\Ppmp;
 use common\models\PpmpItemOriginal;
 use common\models\PpmpUnit;
+use common\models\PpmpMode;
 use common\models\Assignatories;
 use common\models\User;
 
@@ -126,11 +127,8 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button,
-    input[type=number]::-moz-inner-spin-button, 
-    input[type=number]::-moz-outer-spin-button { 
-        -webkit-appearance: none; 
-        -moz-appearance: none; 
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
     }
 
     input[name=final_total] {
@@ -147,7 +145,6 @@ $this->params['breadcrumbs'][] = $this->title;
         outline: none !important;
         background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     }
-
 </style>
 
 <section class="content-header page-heading white-bg">
@@ -220,6 +217,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => 'yyyy-mm-dd',
                             ],
                         ])->label('Date'); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <?= $form->field($pr_model, 'ppmp_mode')
+                            ->dropDownList(ArrayHelper::map(PpmpMode::find()->orderBy('description ASC')->all(), 'ppmp_mode_id', 'description'), [
+                                'placeholder' => 'Mode of Procurement']) ?>
                     </div>
                 </div>
                 <hr>

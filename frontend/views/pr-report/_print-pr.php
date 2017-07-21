@@ -203,6 +203,7 @@ use yii\helpers\ArrayHelper;
                                 <td class='col-center'>". $item['unit_id'] ."</td>
                                 <td class='col-center'>". 
                                     $item['item_description'];
+                                    if(!empty($item['add_description'])) echo ' x '.$item['add_description'];
                             echo 
                             "</td>
                                 <td class='col-center'>". $item['quantity'] ."</td>

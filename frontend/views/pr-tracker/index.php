@@ -268,6 +268,7 @@ $this->params['breadcrumbs'][] = 'Tracker';
                 $model->date_created    = date("Y-m-d");
                 $model->date_updated    = date("Y-m-d H:i:s");
                 $model->encoder         = Yii::$app->user->identity->id;
+                
                 $sql                    = "SELECT code, acronym, acronym AS acr, description FROM libraries.lib_division 
                                             UNION 
                                                 SELECT b.code, CONCAT(a.acronym,'/', b.acronynm) as acronym, b.acronynm as acr, b.description 
@@ -284,9 +285,8 @@ $this->params['breadcrumbs'][] = 'Tracker';
                                                 WHERE d.section_id = c.section_id
                                                 AND c.unit_id = b.unit_id
                                                 AND b.division_id = a.division_id";
-                $connection = Yii::$app->getDb();
-                $command = $connection->createCommand($sql);
-                $result = $command->queryAll();
+
+                $result = Yii::$app->getDb()->createCommand($sql)->queryAll();
 
                 $model->unit_responsible = "20-001-03-00016-00003-02-03|OPD/PRPU/CDDKC";
             ?>

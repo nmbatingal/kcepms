@@ -18,7 +18,7 @@ class PrReportSearch extends PrReport
     public function rules()
     {
         return [
-            [['pr_id', 'tracker_id', 'requested_by', 'approved_by', 'encoder', 'pr_type', 'status'], 'integer'],
+            [['pr_id', 'tracker_id', 'requested_by', 'approved_by', 'encoder', 'pr_type', 'status', 'ppmp_mode'], 'integer'],
             [['pr_no', 'purpose', 'date_created'], 'safe'],
             [['total_pr_amount'], 'number'],
         ];
@@ -73,6 +73,7 @@ class PrReportSearch extends PrReport
             'approved_by' => $this->approved_by,
             'encoder' => $this->encoder,
             'pr_type' => $this->pr_type,
+            'ppmp_mode' => $this->ppmp_mode,
             'status' => $this->status,
         ]);
 

@@ -13,6 +13,7 @@ use kartik\widgets\DatePicker;
 use common\models\Assignatories;
 use common\models\PrReport;
 use common\models\User;
+use common\models\PpmpMode;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\PrReport */
@@ -266,7 +267,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </td>
                                 <td class="col-3">'.
                                     Html::textInput('item_description', $item['item_description'], ['id' => 'description-'.$item['pr_item_id'], 'class' => 'form-control item row-'.$item['pr_item_id']]) .
-                                    '<span class="item description-'.$item['pr_item_id'].'">'.$item['item_description'].'</span>
+                                    Html::textInput('add_description', $item['add_description'], ['id' => 'add_description-'.$item['pr_item_id'], 'class' => 'form-control item row-'.$item['pr_item_id']]) .
+                                    '<span class="item description-'.$item['pr_item_id'].'">'.
+                                        $item['item_description'];
+                                        if(!empty($item['add_description'])) echo ' x '.$item['add_description'];
+                            echo    '</span>
                                 </td>
                                 <td class="col-4">'.
                                     Html::textInput('quantity', $item['quantity'], ['id' => 'quantity-'.$item['pr_item_id'], 'class' => 'form-control item row-'.$item['pr_item_id']]) .
@@ -306,7 +311,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<!-- CREATE NEW TRACKER MODAL -->
+<!-- UPDATE PR MODAL -->
 <div id="modal-update-pr" class="fade modal" role="dialog">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -348,7 +353,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= $form->field($pr, 'pr_no')->textInput(['placeholder' => 'PR Number', 'readonly' => 'readonly'])->label('PR Number') ?>
                                 <hr>
                                 <?= $form->field($pr, 'purpose')->textArea(['rows' => 3, 'placeholder' => 'Purpose'])->label('Purpose') ?>
-
+                                <?= $form->field($pr, 'ppmp_mode')
+                                        ->dropDownList(ArrayHelper::map(PpmpMode::find()->orderBy('description ASC')->all(), 'ppmp_mode_id', 'description'), [
+                                            'placeholder' => 'Mode of Procurement']) ?>
+                                <hr>
                                 <?php
 
                                     if ( $model['pr_type'] == 0 ) { // PPMP PR

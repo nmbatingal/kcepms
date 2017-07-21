@@ -400,7 +400,26 @@ class PrReportController extends Controller
             $pr_items = PrItemSppmpDetails::findAll(['pr_id' => $model['pr_id']]);
         }
 
-        return $this->renderAjax('_print-pr', [
+        return $this->renderPartial('_print-pr', [
+            'model'    => $model,
+            'pr_items' => $pr_items,
+        ]);
+    }
+
+    public function actionPrintSppmp($id) {
+        
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model    = $this->findModel($id);
+        if ( $model['pr_type'] == 0 ) {
+            $pr_items = PrItemDetails::findAll(['pr_id' => $model['pr_id']]);
+        } else {
+            $pr_items = PrItemSppmpDetails::findAll(['pr_id' => $model['pr_id']]);
+        }
+
+        return $this->renderPartial('_print-sppmp', [
             'model'    => $model,
             'pr_items' => $pr_items,
         ]);

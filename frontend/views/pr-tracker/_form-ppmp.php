@@ -118,9 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button,
-    input[type=number]::-moz-inner-spin-button, 
-    input[type=number]::-moz-outer-spin-button { 
+    input[type=number]::-webkit-outer-spin-button { 
         -webkit-appearance: none; 
         -moz-appearance: none; 
     }
