@@ -265,9 +265,17 @@ class PrTrackerController extends Controller
 
         if ( Yii::$app->request->isAjax ) {
 
-            //if ( $model->delete() ) $result = true;
             $model->status = 0;
-            if ( $model->save() ) $result = true;
+            if ($model->save()) {
+
+                $sql   = "UPDATE pr_report SET status=0 WHERE pr_report.tracker_id = $id";
+                $query = Yii::$app->getDb()->createCommand($sql);
+
+                if($query->execute()) {
+                    $result = true;    
+                }
+                
+            } 
 
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
@@ -276,7 +284,44 @@ class PrTrackerController extends Controller
             ];
 
         }
-        //return $this->redirect(['index']);
+    }
+
+    /**
+     * Deletes an existing PrTracker model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionRestore($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model  = $this->findModel($id);
+        $result = false;
+
+        if ( Yii::$app->request->isAjax ) {
+
+            $model->status = 1;
+            if ($model->save()) {
+
+                $sql   = "UPDATE pr_report SET status=1 WHERE pr_report.tracker_id = $id";
+                $query = Yii::$app->getDb()->createCommand($sql);
+
+                if($query->execute()) {
+                    $result = true;    
+                }
+                
+            } 
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+                'model'  => $model,
+            ];
+
+        }
     }
 
     /**

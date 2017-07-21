@@ -413,6 +413,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="modal-footer">
                     <div class="form-group">
+                        <?= Html::button('Cancel', ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
                         <?= Html::submitButton($pr->isNewRecord ? 'Submit' : 'Update', ['class' => $pr->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                     </div>
                 </div>

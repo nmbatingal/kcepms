@@ -64,6 +64,8 @@ class PrReportSearch extends PrReport
         }
 
         // grid filtering conditions
+        $query->andWhere(['status' => '1']);
+        
         $query->andFilterWhere([
             'pr_id' => $this->pr_id,
             'tracker_id' => $this->tracker_id,

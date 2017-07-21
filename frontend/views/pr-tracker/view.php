@@ -181,7 +181,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'encoder',
             //'pr_type',
             //'status',
-            /*[
+            [
                 'class' => ActionColumn::className(),
                 'header' => '',
                 'headerOptions'=>[
@@ -190,19 +190,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'class'=>'kv-align-center kv-align-middle',
                 ],
-                'template'=>'{view}&nbsp;{print}',
+                'template'=>'{delete}',
                 'buttons' => [
-                    'view'=> function ($url, $model) {
-                        return Html::a( '<i class="glyphicon glyphicon-eye-open"></i>',
-                                Url::toRoute(['pr-report/view', 'id'=>$model['pr_id']]),
+                    'delete'=> function ($url, $model) {
+
+                        return Html::a( '<i class="glyphicon glyphicon-trash"></i>',
+                                Url::toRoute(['pr-report/delete', 'id'=>$model['pr_id']]),
                                 [
-                                    'class'=> 'btn btn-xs btn-warning btn-link-page',
-                                    'title' => 'view tracker',
+                                    'class'=> 'btn btn-sm btn-danger btn-delete-pr',
+                                    'title' => 'delete tracker',
                                 ]
                             );
                     },
                 ],
-            ],*/
+            ],
         ];
     ?>
 

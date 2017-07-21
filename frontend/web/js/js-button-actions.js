@@ -324,6 +324,45 @@ $(document).on('click', '.btn-delete-tracker', function(event, jqXHR, settings) 
 
 });
 
+/*** BUTTON DELETE PR ***/
+$(document).on('click', '.btn-delete-pr', function(event, jqXHR, settings) {
+    event.preventDefault();
+    var button = $(this);
+    var row    = button.closest('tr');
+
+    swal({
+        title: 'Are you sure?',
+        type:  "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, remove PR!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+    }, function (isConfirm) {
+        if (!isConfirm) return;
+        $.ajax({
+            url: button.attr('href'),
+            type: "POST",
+            success: function (data) {
+                if (data.result) {
+                    swal("Done!","PR " + data.model['pr_no'] + " was successfully removed!", "success");
+                    
+                    row.hide('slow', function() { 
+                        row.remove();
+                    });
+
+                } else {
+                    swal("Error!", "Failed to remove the PR", "error");
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error!", "Please try again", "error");
+            }
+        });
+    });
+
+});
+
 /*** PR ITEMS SELECT LABEL OPTIONS ***/
 $(document).on('change','.select-label',function(event, jqXHR, settings) {
     var option   = this.value;
@@ -955,24 +994,33 @@ $(document).on('beforeSubmit', '#frm-update-pr', function(event, jqXHR, settings
     event.preventDefault();
     var form = $(this);
     
-    console.log(form.serializeArray());
-    /*$.ajax({
+    $.ajax({
         url: form.attr('action'),
         type: 'POST',
         data: form.serialize(),
         success: function(data) {
 
             if (data.result) {
-                location.reload();
-                window.open(data.url, '_blank');
+                swal({
+                    title: 'Done!',
+                    text:  'Purchase Request Number ' + data.model['pr_no'] +' successfully updated!',
+                    type:  "success",
+                    showCancelButton: false,
+                    closeOnConfirm: true,
+                }, function () {
+
+                    $('input[name=purpose]').val(data.model['purpose']);
+                    $('#modal-update-pr').modal('toggle');
+                });
+            } else {
+                swal("Error!", "Purchase Request information failed to update!", "error");
             }
         },
         error: function(xhr, textStatus, errorThrown){
-            console.log(errorThrown);
+            swal("System Error!", "Please try again", "error");
         }
-    });*/
+    });
 
-    $('#modal-update-pr').modal('toggle');
     return false;
 });
 

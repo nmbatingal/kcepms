@@ -340,6 +340,7 @@ $this->params['breadcrumbs'][] = 'Tracker';
 
                 <div class="modal-footer">
                     <div class="form-group">
+                        <?= Html::button('Cancel', ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
                         <?= Html::submitButton($model->isNewRecord ? 'Submit' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                     </div>
                 </div>

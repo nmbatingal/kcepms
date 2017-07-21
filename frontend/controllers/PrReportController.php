@@ -342,14 +342,28 @@ class PrReportController extends Controller
             return $this->goHome();
         }
 
+        $result     = false;
+        $pr_report  = Yii::$app->request->post('PrReport');
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pr_id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($pr_report) {
+
+            $model->purpose      = $pr_report['purpose'];
+            $model->ppmp_mode    = $pr_report['ppmp_mode'];
+            $model->requested_by = $pr_report['requested_by'];
+            $model->noted_by     = $pr_report['noted_by'];
+            $model->reviewed_by  = $pr_report['reviewed_by'];
+            $model->approved_by  = $pr_report['approved_by'];
+
+            if ($model->save()) {
+                $result = true;
+            }
+            //return $this->redirect(['view', 'id' => $model->pr_id]);
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+                'model'  => $model,
+            ];
         }
     }
 
@@ -361,13 +375,72 @@ class PrReportController extends Controller
      */
     public function actionDelete($id)
     {
+
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $this->findModel($id)->delete();
+        $model  = $this->findModel($id);
+        $result = false;
 
-        return $this->redirect(['index']);
+        if ( Yii::$app->request->isAjax ) {
+
+            $model->status = 0;
+            if ($model->save()) {
+
+                /*if( $model['pr_type'] == 0 ) {
+                    $sql   = "UPDATE pr_item_details SET status=0 WHERE pr_id = $id";
+                } else {
+                    $sql   = "UPDATE pr_item_sppmp_details SET status=0 WHERE pr_id = $id";
+                }
+
+                $query = Yii::$app->getDb()->createCommand($sql);
+
+                if($query->execute()) {
+                    $result = true;    
+                }*/
+                $result = true; 
+            } 
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+                'model'  => $model,
+            ];
+
+        }
+    }
+
+    /**
+     * Deletes an existing PrReport model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionRestore($id)
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model  = $this->findModel($id);
+        $result = false;
+
+        if ( Yii::$app->request->isAjax ) {
+
+            $model->status = 1;
+            if ($model->save()) {
+                $result = true; 
+            } 
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+                'model'  => $model,
+            ];
+
+        }
     }
 
     /**
