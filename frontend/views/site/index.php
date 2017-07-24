@@ -19,5 +19,10 @@ $this->title = 'Dashboard';
 ?>
 
 <div class="site-index content-body">
-	Dashboard
+
+	<!-- CHARTS -->
+	<div class="container">
+
+	</div>
+
 </div>
