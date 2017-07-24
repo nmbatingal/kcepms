@@ -49,13 +49,16 @@
             </div>
             <div class="info">
                 <?php
+
+                    $user = Yii::$app->user->identity;
+
                     if ( Yii::$app->user->isGuest ) {
                         echo '<p>Guest</p>';
                     } else {
                         echo '
-                            <p>Alexander Pierce</p>
+                            <p>'.$user->firstname . ' ' . $user->mi[0] .'. ' . $user->lastname.'</p>
 
-                            <a href="#">Online</a>';
+                            <a href="#">'. $user->position_abr .'</a>';
                     }
                 ?>
             </div>
