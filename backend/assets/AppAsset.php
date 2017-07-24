@@ -16,13 +16,11 @@ class AppAsset extends AssetBundle
         //'css/fountain.css',
         //'css/pace.css',
         'css/ionicons/css/ionicons.min.css',
-        'css/sweetAlert/sweetalert.css',
     ];
     public $js = [
         'js/js-button-actions.js',
         'js/js-modal.js',
         'js/slimScroll/jquery.slimscroll.min.js',
-        'js/sweetAlert/sweetalert.min.js',
         //'js/pace.js',
     ];
     public $depends = [

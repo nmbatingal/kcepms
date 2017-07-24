@@ -36,7 +36,7 @@ class PrReport extends \yii\db\ActiveRecord
     {
         return [
             [['pr_type', 'purpose', 'requested_by', 'approved_by'], 'required'],
-            [['tracker_id', 'requested_by', 'noted_by', 'reviewed_by', 'approved_by', 'encoder', 'pr_type', 'ppmp_mode', 'status'], 'integer'],
+            [['tracker_id', 'requested_by', 'noted_by', 'reviewed_by', 'approved_by', 'encoder', 'pr_type', 'status'], 'integer'],
             [['purpose'], 'string'],
             [['date_created'], 'safe'],
             [['total_pr_amount'], 'number'],
@@ -63,7 +63,6 @@ class PrReport extends \yii\db\ActiveRecord
             'approved_by' => 'Approved By',
             'encoder' => 'Encoder',
             'pr_type' => 'Pr Type',
-            'ppmp_mode' => 'Mode of Procurement',
             'status' => 'Status',
         ];
     }
@@ -74,14 +73,6 @@ class PrReport extends \yii\db\ActiveRecord
     public function getTracker()
     {
         return $this->hasOne(PrTracker::className(), ['pr_tracker_id' => 'tracker_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPpmpMode()
-    {
-        return $this->hasOne(PpmpMode::className(), ['ppmp_mode_id' => 'ppmp_mode']);
     }
 
     /**
