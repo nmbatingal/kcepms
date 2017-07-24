@@ -19,8 +19,8 @@ use common\models\LibDivision;
 /* @var $searchModel frontend\models\PrTrackerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Trackers';
-$this->params['breadcrumbs'][] = 'Tracker';
+$this->title = 'PR Tracker';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <style>
@@ -234,7 +234,7 @@ $this->params['breadcrumbs'][] = 'Tracker';
         'responsive'=>true,
         'hover'=>true,
         'panel'=> [
-            'heading'=>'',
+            'heading'=>'&nbsp;',
             'headingOptions' => [
                 'class' => 'box-header box-solid header-inspinia no-border',
             ],

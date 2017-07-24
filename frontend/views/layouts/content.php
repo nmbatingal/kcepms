@@ -16,6 +16,7 @@ use dmstr\widgets\Alert;
     
     .header-inspinia {
         background-color: #1ab394 !important; 
+        color: #fff !important;
     }
 
     .header-inspinia > .box-title {

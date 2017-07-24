@@ -17,7 +17,7 @@ use common\models\PrReport;
 /* @var $model common\models\PrTracker */
 
 $this->title = $model->tracker_no;
-$this->params['breadcrumbs'][] = ['label' => 'Trackers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PR Tracker', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

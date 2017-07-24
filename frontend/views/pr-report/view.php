@@ -19,7 +19,7 @@ use common\models\PpmpMode;
 /* @var $model common\models\PrReport */
 
 $this->title = 'PR '.$model->pr_no;
-$this->params['breadcrumbs'][] = ['label' => 'Trackers', 'url' => ['pr-tracker/index']];
+$this->params['breadcrumbs'][] = ['label' => 'PR Tracker', 'url' => ['pr-tracker/index']];
 $this->params['breadcrumbs'][] = ['label' => $model->tracker->tracker_no, 'url' => ['pr-tracker/view', 'id' => $model->tracker_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -179,7 +179,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="box-header with-border">
             <h3 class="box-title"><b>Purchase Report</b> <?= $model['pr_type'] === 1 ? '(Supplemental)' : '' ?></h3>
             <div class="box-tools pull-right">
-                <?= Html::button('Update', ['id' => '', 'data-toggle' => 'modal', 'data-target' => '#modal-update-pr', 'data-backdrop' => 'static', 'data-keyboard' => false, 'class' => 'btn btn-primary']) ?>
+                <?= Html::button('<i class="fa fa-pencil"></i>', ['id' => '', 'data-toggle' => 'modal', 'data-target' => '#modal-update-pr', 'data-backdrop' => 'static', 'data-keyboard' => false, 'class' => 'btn btn-primary']) ?>
                 <?= Html::a('<i class="fa fa-print"></i> Print PR', ['print-pr', 'id' => $model['pr_id']], ['id' => 'btn-print-pr', 'class' => 'btn bg-gray', 'target' => '_blank']) ?>
                 <?= $model['pr_type'] === 1 ? Html::a('<i class="fa fa-print"></i> Print SPPMP', ['print-sppmp', 'id' => $model['pr_id']], ['id' => 'btn-print-sppmp', 'class' => 'btn bg-gray', 'target' => '_blank']) : '' ?>
             </div>

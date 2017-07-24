@@ -39,12 +39,25 @@
         <!-- Sidebar user panel -->
         <div class="user-panel panel-inspinia">
             <div class="pull-left image">
-                <img src="<?= Yii::getAlias('@web') ?>/img/avatar/avatar.png" class="img-circle" alt="User Image"/>
+                <?php
+                    if ( Yii::$app->user->isGuest ) {
+                        echo '<img src="'.Yii::getAlias('@web') .'/img/avatar/avatar.png" class="img-circle" alt="User Image"/>';
+                    } else {
+                        echo '<img src="'.Yii::getAlias('@web') .'/img/avatar/user.png" class="img-circle" alt="User Image"/>';
+                    }
+                ?>
             </div>
             <div class="info">
-                <p>Alexander Pierce</p>
+                <?php
+                    if ( Yii::$app->user->isGuest ) {
+                        echo '<p>Guest</p>';
+                    } else {
+                        echo '
+                            <p>Alexander Pierce</p>
 
-                <a href="#">Online</a>
+                            <a href="#">Online</a>';
+                    }
+                ?>
             </div>
         </div>
 
@@ -66,6 +79,7 @@
                 'items' => [
                     //['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Dashboard', 'icon' => 'th-large', 'url' => ['site/index'], 'options' => ['class' => 'btn-left-menu']],
+                    ['label' => 'Items & Supplies', 'icon' => 'cubes', 'url' => ['lib-item/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     [
                         'label' => 'PPMP',
                         'icon'  => 'calendar-check-o',
@@ -76,7 +90,8 @@
                             ['label' => 'PPMP 2017', 'icon' => 'circle-o', 'url' => ['ppmp/index'], 'options' => ['class' => 'btn-left-menu-child']],
                         ],
                     ],
-                    ['label' => 'Tracker', 'icon' => 'list-ul', 'url' => ['pr-tracker/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+                    ['label' => 'PR Tracker', 'icon' => 'list-ul', 'url' => ['pr-tracker/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+                    ['label' => 'Purchase Requests', 'icon' => 'wpforms', 'url' => ['tbl-purchase-request/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     //['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                 ],
