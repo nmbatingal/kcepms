@@ -1,15 +1,16 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\PrTracker */
+/* @var $model common\models\LibItem */
 
-$this->title = 'Update Tracker';
-$this->params['breadcrumbs'][] = ['label' => 'PR Tracker', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->tracker_no, 'url' => ['view', 'id' => $model->pr_tracker_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Create';
+$this->params['breadcrumbs'][] = ['label' => 'Items & Supplies', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <section class="content-header page-heading white-bg">
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = 'Update';
     ) ?>
 </section>
 
-<div class="pr-tracker-update content-body">
+<div class="lib-item-create content-body">
 
     <?= $this->render('_form', [
         'model' => $model,

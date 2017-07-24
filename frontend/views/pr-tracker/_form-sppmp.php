@@ -27,7 +27,7 @@ use common\models\User;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Create';
-$this->params['breadcrumbs'][] = ['label' => 'Trackers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PR Tracker', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $tracker->tracker_no, 'url' => ['view', 'id' => $tracker->pr_tracker_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

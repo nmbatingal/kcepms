@@ -68,7 +68,7 @@ use yii\helpers\Html;
                 <input type="text" name="search" placeholder="search for something..." class="input-search">
             </form>
         </div>
-
+        
         <?php
 
             if(!Yii::$app->user->isGuest) {

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\PrTracker */
+/* @var $model common\models\TblPurchaseRequest */
 
-$this->title = 'Create Pr Tracker';
-$this->params['breadcrumbs'][] = ['label' => 'Pr PR Tracker', 'url' => ['index']];
+$this->title = 'Create Tbl Purchase Request';
+$this->params['breadcrumbs'][] = ['label' => 'Tbl Purchase Requests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pr-tracker-create">
+<div class="tbl-purchase-request-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

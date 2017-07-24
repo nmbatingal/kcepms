@@ -44,6 +44,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="ppmp-index content-body">
 
+    <div class="box box-solid">
+        <div class="box-body">
+            <div class="pull-right">
+                <?= Html::a('Add New PPMP', Url::toRoute(['create']), ['id' => '', 'class' => 'btn btn-success btn-link-page']) ?>
+            </div>
+        </div>
+    </div>
+
     <?php
         $column = [
             //'ppmp_id',
@@ -235,18 +243,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
-        'toolbar'=> [
-            [
-                'content' =>
-                    Html::a( 'Create New PPMP',  
-                        Url::toRoute(['create']), 
-                        [
-                            'class' => 'btn btn-sm btn-success btn-link-page', 
-                            'id'    => 'btn-ppmp-add', 
-                            'title' => Yii::t('app', 'Add PPMP')
-                        ])
-            ],
-        ],
+        'toolbar'=> false,
         'pjax'=>true,
         'showPageSummary'=>true,
         'bordered'=>true,
@@ -257,8 +254,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel'=> [
             'heading'=>'<b>Project Procurement Management Plan 2017</b>',
             'headingOptions' => [
-                'class' => 'box-header box-solid bg-default no-border',
+                'class' => 'box-header box-solid header-inspinia no-border',
             ],
+            'before' => false,
             'after' => false,
             'footer'=> false,
         ],

@@ -16,6 +16,7 @@ use dmstr\widgets\Alert;
     
     .header-inspinia {
         background-color: #1ab394 !important; 
+        color: #fff !important;
     }
 
     .header-inspinia > .box-title {
@@ -60,7 +61,6 @@ use dmstr\widgets\Alert;
     <section class="content">
         <?= $content ?>
     </section>
-    
 </div>
 
 <footer class="main-footer custom-footer">
