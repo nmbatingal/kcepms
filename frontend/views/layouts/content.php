@@ -60,7 +60,6 @@ use dmstr\widgets\Alert;
     <section class="content">
         <?= $content ?>
     </section>
-    
 </div>
 
 <footer class="main-footer custom-footer">

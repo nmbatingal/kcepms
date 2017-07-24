@@ -18,6 +18,10 @@ class AppAsset extends AssetBundle
         'css/ionicons/css/ionicons.min.css',
     ];
     public $js = [
+        'js/vue.js',
+        'js/highcharts/code/highcharts.js',
+        'js/dashboard_vue.js',
+
         'js/js-button-actions.js',
         'js/js-modal.js',
         'js/slimScroll/jquery.slimscroll.min.js',

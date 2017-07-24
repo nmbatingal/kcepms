@@ -18,11 +18,34 @@ $this->title = 'Dashboard';
 	}
 ?>
 
-<div class="site-index content-body">
+<div id="dashboard" class="site-index content-body">
 
 	<!-- CHARTS -->
-	<div class="container">
+	<div class="container-fluid">
+		
+		<!--  -->
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="panel-title"></div>
+				</div>
+				<div class="panel-body">
+					<div id="tracker_graph"></div>
+				</div>
+			</div>
+		</div>
 
+		<!--  -->
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="panel-title"></div>
+				</div>
+				<div class="panel-body">
+					<div id="summary_graph"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </div>
