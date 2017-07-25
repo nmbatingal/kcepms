@@ -26,7 +26,7 @@ class PrReport extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'pr_report';
+        return 'kc_epms.pr_report';
     }
 
     /**
@@ -65,6 +65,14 @@ class PrReport extends \yii\db\ActiveRecord
             'pr_type' => 'Pr Type',
             'status' => 'Status',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTblPurchaseRequest()
+    {
+        return $this->hasOne(TblPurchaseRequest::className(), ['pr_no' => 'pr_no']);
     }
 
     /**

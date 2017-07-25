@@ -56,7 +56,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'pr_no',
                 'label' => 'PR No',
-                'value' => 'pr_no',
+                'value' => function($model){
+                    $pr = $model->prReport;
+
+                    if(!empty($pr)) {
+                        return Html::a($model['pr_no'], ['pr-report/view', 'id' => $pr['pr_id']], ['class' => 'btn-link-page']);
+                    } else {
+                        return $model['pr_no'];
+                    }
+                },
+                'format' => 'raw',
                 'headerOptions'=>[
                     'class'=>'kv-align-center kv-align-middle',
                 ],

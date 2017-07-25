@@ -15,6 +15,7 @@ use common\models\PrItemDetails;
 use common\models\PrItemSppmpDetails;
 use common\models\PpmpItemDeduction;
 use common\models\Ppmp;
+use common\models\TblPurchaseRequest;
 use common\models\TblPrNo;
 
 /**
@@ -130,27 +131,20 @@ class PrReportController extends Controller
         if ( $pr_report && $pr_items ) {
 
             $model  = new PrReport();
-            $tbl_pr = new TblPrNo();
+            $tbl_pr = new TblPurchaseRequest();
 
             /*** VALIDATE PR NUMBER ***/
-            $date = explode("-", $pr_report['date_created']);   // PARSE DATE
-            $sequence = TblPrNo::getPrNumbers();
+            $date = explode("-", $pr_report['date_created']);
+            $sequence = TblPurchaseRequest::getAllPr();
 
             if( !empty($sequence) ) {
 
-                $temp = $sequence['pr_seq'] + 1;
+                $temp = $sequence + 1044;
                 $model->pr_no      = str_pad($temp, 4, '0', STR_PAD_LEFT) .'-'. date("m-y", strtotime($pr_report['date_created']));
-                $tbl_pr->pr_year   = date("y", strtotime($pr_report['date_created']));
-                $tbl_pr->pr_month  = $date[1];
-                $tbl_pr->pr_seq    = $temp;
-                $tbl_pr->pr_no     = str_pad($temp, 4, '0', STR_PAD_LEFT) .'-'. date("m-y", strtotime($pr_report['date_created']));
 
             } else {
+
                 $model->pr_no      = '0001'.'-'. date("m-y", strtotime($pr_report['date_created']));
-                $tbl_pr->pr_year   = date("y", strtotime($pr_report['date_created']));
-                $tbl_pr->pr_month  = $date[1];
-                $tbl_pr->pr_seq    = '0001';
-                $tbl_pr->pr_no     = '0001'.'-'. date("m-y", strtotime($pr_report['date_created']));
             }
 
             $model->tracker_id     = $pr_report['tracker_id'];
@@ -208,19 +202,28 @@ class PrReportController extends Controller
 
             if ( $pr->save() ) {
 
-                $tbl_pr->pr_title      = $pr_report['purpose'];
-                $tbl_pr->program       = $pr_report['program'];
-                $tbl_pr->pr_amount     = $total_amount;
-                $tbl_pr->requested_by  = $pr_report['proponent'];
-                $tbl_pr->date_created  = $pr_report['date_created'];
-                $tbl_pr->encoder       = $pr_report['encoder'];
+                $tbl_pr->pr_no         = $model->pr_no;
+                $tbl_pr->doc_type_id   = "1";
+                $tbl_pr->div_id        = $model->tracker->unit_responsible;
+                $tbl_pr->unit_id       = $model->tracker->responsibility_code;
+                $tbl_pr->doc_date      = $pr_report['date_created'];
+                $tbl_pr->purpose       = $pr_report['purpose'];
+                $tbl_pr->tot_amount    = $total_amount;
+                $tbl_pr->requested_by  = $model->tracker->proponent;
+                $tbl_pr->date_encoded  = $model->date_created;
+                $tbl_pr->place         = "DSWD Field Office, CARAGA Region";
+                $tbl_pr->responsible   = "alejandro taculod borja";
+                $tbl_pr->prov_code     = "0";
+                $tbl_pr->city_code     = "0";
+                $tbl_pr->brgy_code     = "0";
+                $tbl_pr->encoded_by    = "atborja";
+                $tbl_pr->username      = "atborja";
 
                 if ( $tbl_pr->save() ) {
                     $result = true;
                 }
             }
 
-            //Yii::$app->response->format = Response::FORMAT_JSON;
             return $this->redirect(['pr-report/view', 'id' => $model->pr_id]);
         }
     }
@@ -239,27 +242,20 @@ class PrReportController extends Controller
         if ( $pr_report && $pr_items ) {
 
             $model  = new PrReport();
-            $tbl_pr = new TblPrNo();
+            $tbl_pr = new TblPurchaseRequest();
 
             /*** VALIDATE PR NUMBER ***/
-            $date = explode("-", $pr_report['date_created']);   // PARSE DATE
-            $sequence = TblPrNo::getPrNumbers();
+            $date = explode("-", $pr_report['date_created']);
+            $sequence = TblPurchaseRequest::getAllPr();
 
             if( !empty($sequence) ) {
 
-                $temp = $sequence['pr_seq'] + 1;
+                $temp = $sequence + 1044;
                 $model->pr_no      = str_pad($temp, 4, '0', STR_PAD_LEFT) .'-'. date("m-y", strtotime($pr_report['date_created']));
-                $tbl_pr->pr_year   = date("y", strtotime($pr_report['date_created']));
-                $tbl_pr->pr_month  = $date[1];
-                $tbl_pr->pr_seq    = $temp;
-                $tbl_pr->pr_no     = str_pad($temp, 4, '0', STR_PAD_LEFT) .'-'. date("m-y", strtotime($pr_report['date_created']));
 
             } else {
+
                 $model->pr_no      = '0001'.'-'. date("m-y", strtotime($pr_report['date_created']));
-                $tbl_pr->pr_year   = date("y", strtotime($pr_report['date_created']));
-                $tbl_pr->pr_month  = $date[1];
-                $tbl_pr->pr_seq    = '0001';
-                $tbl_pr->pr_no     = '0001'.'-'. date("m-y", strtotime($pr_report['date_created']));
             }
 
             $model->tracker_id     = $pr_report['tracker_id'];
@@ -313,19 +309,28 @@ class PrReportController extends Controller
 
             if ( $pr->save() ) {
 
-                $tbl_pr->pr_title      = $pr_report['purpose'];
-                $tbl_pr->program       = $pr_report['program'];
-                $tbl_pr->pr_amount     = $total_amount;
-                $tbl_pr->requested_by  = $pr_report['proponent'];
-                $tbl_pr->date_created  = $pr_report['date_created'];
-                $tbl_pr->encoder       = $pr_report['encoder'];
+                $tbl_pr->pr_no         = $model->pr_no;
+                $tbl_pr->doc_type_id   = "1";
+                $tbl_pr->div_id        = $model->tracker->unit_responsible;
+                $tbl_pr->unit_id       = $model->tracker->responsibility_code;
+                $tbl_pr->doc_date      = $pr_report['date_created'];
+                $tbl_pr->purpose       = $pr_report['purpose'];
+                $tbl_pr->tot_amount    = $total_amount;
+                $tbl_pr->requested_by  = $model->tracker->proponent;
+                $tbl_pr->date_encoded  = $model->date_created;
+                $tbl_pr->place         = "DSWD Field Office, CARAGA Region";
+                $tbl_pr->responsible   = "alejandro taculod borja";
+                $tbl_pr->prov_code     = "0";
+                $tbl_pr->city_code     = "0";
+                $tbl_pr->brgy_code     = "0";
+                $tbl_pr->encoded_by    = "atborja";
+                $tbl_pr->username      = "atborja";
 
                 if ( $tbl_pr->save() ) {
                     $result = true;
                 }
             }
 
-            //Yii::$app->response->format = Response::FORMAT_JSON;
             return $this->redirect(['pr-report/view', 'id' => $model->pr_id]);
         }
     }

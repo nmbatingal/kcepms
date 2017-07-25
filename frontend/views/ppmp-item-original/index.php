@@ -378,7 +378,7 @@ $this->params['breadcrumbs'][] = 'PPMP Original';
                     'class'=>'kv-align-center kv-align-middle',
                 ],
                 'contentOptions' => [
-                    'class'=>'kv-align-right kv-align-middle',
+                    'class'=>'kv-align-center kv-align-middle',
                 ],
                 'width' => '120px',
             ],
@@ -441,7 +441,7 @@ $this->params['breadcrumbs'][] = 'PPMP Original';
         'dataProvider'=>$dataProvider,
         //'filterModel'=>$searchModel,
         'columns'=> $column,
-        'floatHeader' => true,
+        //'floatHeader' => true,
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
         'containerOptions'=>['style'=>'overflow: auto;'],

@@ -31,7 +31,7 @@ class TblPurchaseRequest extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'tbl_purchase_request';
+        return 'supply_procurement_system.tbl_purchase_request';
     }
 
     /**
@@ -84,5 +84,27 @@ class TblPurchaseRequest extends \yii\db\ActiveRecord
             'encoded_by' => 'Encoded By',
             'username' => 'Username',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPrReport()
+    {
+        return $this->hasOne(PrReport::className(), ['pr_no' => 'pr_no']);
+    }
+
+    /*** USER DEFINED FUNCTION ***/
+    public function getPrNumbers()
+    {
+        $query = TblPurchaseRequest::find()->orderBy('pr_no DESC')->one();
+        return $query;
+    }
+
+    /*** USER DEFINED FUNCTION ***/
+    public function getAllPR()
+    {
+        $query = TblPurchaseRequest::find()->count();
+        return $query;
     }
 }
