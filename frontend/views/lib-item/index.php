@@ -102,21 +102,14 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <?= GridView::widget([
-<<<<<<< HEAD
-        'id' => 'grid-ppmp',
-=======
         'id' => 'grid-lib-item',
->>>>>>> a061c6fa84226ae2e87c35a20b54c4c58354be42
         'dataProvider'=>$dataProvider,
         'filterModel'=>$searchModel,
         'columns' => $column,
         'tableOptions'=>[
             'id'=>'table-grid-ppmp',
         ],
-<<<<<<< HEAD
-=======
         'floatHeader' => true,
->>>>>>> a061c6fa84226ae2e87c35a20b54c4c58354be42
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
         'toolbar'=> false,
