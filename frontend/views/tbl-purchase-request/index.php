@@ -129,12 +129,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'city_code',
             // 'brgy_code',
             // 'encoded_by',
-<<<<<<< HEAD
-            'username',
-
-            // ['class' => 'yii\grid\ActionColumn'],
-        ],
-=======
             //'username',
             [
                 'attribute' => 'username',
@@ -183,6 +177,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'resizableColumns'=>false,
         'persistResize'=>true,
->>>>>>> a061c6fa84226ae2e87c35a20b54c4c58354be42
     ]); ?>
 </div>
