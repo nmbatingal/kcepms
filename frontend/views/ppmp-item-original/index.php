@@ -378,7 +378,7 @@ $this->params['breadcrumbs'][] = 'PPMP Original';
                     'class'=>'kv-align-center kv-align-middle',
                 ],
                 'contentOptions' => [
-                    'class'=>'kv-align-right kv-align-middle',
+                    'class'=>'kv-align-center kv-align-middle',
                 ],
                 'width' => '120px',
             ],
