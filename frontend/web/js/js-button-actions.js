@@ -36,7 +36,8 @@ $(document).on('click', '.btn-left-menu', function(event, jqXHR, settings) {
         success: function(data) {
             $('.content-wrapper').html(data.html);
             $(document).prop('title', data.title);
-            window.history.pushState(null, data.url, data.url);
+
+            window.history.pushState({url: "" + data.url + ""}, data.title, data.url);
         },
         error: function(xhr, textStatus, errorThrown){
             alert('request failed');
@@ -72,7 +73,8 @@ $(document).on('click', '.btn-left-menu-child', function(event, jqXHR, settings)
 
             $('.content-wrapper').html(data.html);
             $(document).prop('title', data.title);
-            window.history.pushState(null, data.url, data.url);
+
+            window.history.pushState({url: "" + data.url + ""}, data.title, data.url);
         },
         error: function(xhr, textStatus, errorThrown){
             alert('request failed');
@@ -96,7 +98,8 @@ $(document).on('click', '.btn-link-page', function(event, jqXHR, settings) {
 
             $('.content-wrapper').html(data.html);
             $(document).prop('title', data.title);
-            window.history.pushState(null, data.url, data.url);
+
+            window.history.pushState({url: "" + data.url + ""}, data.title, data.url);
         },
         error: function(xhr, textStatus, errorThrown){
             alert('request failed');
@@ -264,7 +267,8 @@ $(document).on('beforeSubmit', '#frm-update-tracker', function(event, jqXHR, set
 
                             $('.content-wrapper').html(data.html);
                             $(document).prop('title', data.title);
-                            window.history.pushState(null, data.url, data.url);
+
+                            window.history.pushState({url: "" + data.url + ""}, data.title, data.url);
                         },
                         error: function(xhr, textStatus, errorThrown){
                             alert('request failed');

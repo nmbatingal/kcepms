@@ -13,6 +13,7 @@ use common\models\Ppmp;
 use frontend\models\PpmpSearch;
 use common\models\PpmpCategory;
 use common\models\PpmpItemOriginal;
+use common\models\LibItems;
 
 /**
  * PpmpController implements the CRUD actions for Ppmp model.
@@ -281,7 +282,7 @@ class PpmpController extends Controller
         
         $ppmp_id    = isset($_POST['ppmp_id']) ? $_POST['ppmp_id'] : '';
 
-        $connection = Yii::$app->getDb();
+        /*$connection = Yii::$app->getDb();
         $command = $connection->createCommand("
             SELECT o.*
              , (o.total_count - (SELECT SUM(d.total_count) AS total_count FROM ppmp_item_deduction d WHERE d.ppmp_item_original_id = o.ppmp_item_original_id)) AS remaining
@@ -289,16 +290,19 @@ class PpmpController extends Controller
             FROM ppmp_item_original o
             LEFT JOIN lib_item_unit i
                 ON i.unit_id = o.unit_id
-            WHERE o.ppmp_id = :ppmp_id", [':ppmp_id' => $ppmp_id]);
+            WHERE o.ppmp_id = $ppmp_id");
 
-        $result = $command->queryAll();
-        $model  = Ppmp::findOne(['ppmp_id' => $ppmp_id]);
+        $result = $command->queryAll();*/
 
-        if (!empty($result)) {
+        $lib_items = LibItems::find()->all();
+        $model     = Ppmp::findOne(['ppmp_id' => $ppmp_id]);
+
+        if (!empty($lib_items)) {
 
             Yii::$app->response->format = Response::FORMAT_JSON;
             return $this->renderAjax('_pr-ppmp', [
-                'query' => $result,
+                //'query' => $result,
+                'query' => $lib_items,
                 'model' => $model,
             ]);
 

@@ -53,44 +53,54 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(); ?>
 
-        <div class="box box-solid">
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <?= $form->field($model, 'item_category_id')
-                                ->dropDownList(ArrayHelper::map(LibItemCategory::find()->orderBy('account_title ASC')->all(), 'item_category_id', 'account_title'), 
-                                    ['prompt' => 'select item category ...']) 
-                                ->label('Item Category') ?>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-solid">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?= $form->field($model, 'item_category_id')
+                                        ->dropDownList(ArrayHelper::map(LibItemCategory::find()->orderBy('account_title ASC')->all(), 'item_category_id', 'account_title'), 
+                                            ['prompt' => 'select item category ...']) 
+                                        ->label('Item Category') ?>
+                            </div>
+                        </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <?= $form->field($model, 'generic_id')
-                                ->dropDownList(ArrayHelper::map(LibItemGeneric::find()->orderBy('description ASC')->all(), 'generic_id', 'description'), 
-                                    ['prompt' => 'select item generic name ...']) 
-                                ->label('Item Generic Name') ?>
-                    </div>
-                    <div class="col-md-6">
-                        <?= $form->field($model, 'subgeneric_id')
-                                ->dropDownList(ArrayHelper::map(LibItemSubgeneric::find()->orderBy('description ASC')->all(), 'subgeneric_id', 'description'), 
-                                    ['prompt' => 'select item subgeneric name ...']) 
-                                ->label('Item Subgeneric Name') ?>
-                    </div>
-                </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?= $form->field($model, 'generic_id')
+                                        ->dropDownList(ArrayHelper::map(LibItemGeneric::find()->orderBy('description ASC')->all(), 'generic_id', 'description'), 
+                                            ['prompt' => 'select item generic name ...']) 
+                                        ->label('Item Generic Name') ?>
+                            </div>
+                        </div>
 
-                <div class="row">
-                    <div class="col-md-9">
-                        <?= $form->field($model, 'item_description')->textarea(['rows' => 6]) ?>
-                    </div>
-                    <div class="col-md-3">
-                        <?= $form->field($model, 'unit_id')
-                                ->dropDownList(ArrayHelper::map(LibItemUnit::find()->orderBy('name ASC')->all(), 'unit_id', 'name'), 
-                                    ['prompt' => 'select item unit of measurement ...']) 
-                                ->label('Unit of Measurement') ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?= $form->field($model, 'subgeneric_id')
+                                        ->dropDownList(ArrayHelper::map(LibItemSubgeneric::find()->orderBy('description ASC')->all(), 'subgeneric_id', 'description'), 
+                                            ['prompt' => 'select item subgeneric name ...']) 
+                                        ->label('Item Subgeneric Name') ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?= $form->field($model, 'item_description')->textarea(['rows' => 3]) ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?= $form->field($model, 'unit_id')
+                                        ->dropDownList(ArrayHelper::map(LibItemUnit::find()->orderBy('name ASC')->all(), 'unit_id', 'name'), 
+                                            ['prompt' => 'select item unit of measurement ...']) 
+                                        ->label('Unit of Measurement') ?>
+                            </div>
+                        </div>
+                                
                     </div>
                 </div>
-                        
             </div>
         </div>
 

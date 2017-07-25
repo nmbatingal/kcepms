@@ -117,6 +117,7 @@ class PrReportController extends Controller
         }
     }*/
 
+    /*** SAVE PR-PPMP ***/
     public function actionCreate() 
     {
         if (Yii::$app->user->isGuest) {
@@ -165,18 +166,21 @@ class PrReportController extends Controller
 
                     $item->pr_id                 = $model->pr_id;
                     $item->item_type             = $pr_items['item_type'][$i];
-                    $item->ppmp_item_original_id = $pr_items['ppmp_item_original_id'][$i];
+                    //$item->ppmp_item_original_id = $pr_items['ppmp_item_original_id'][$i];
+                    $item->ppmp_id               = $pr_items['ppmp_id'][$i];
+                    $item->item_id               = $pr_items['ppmp_item_original_id'][$i];
                     $item->group_label           = $pr_items['group_label'][$i];
-                    $item->unit_id               = $pr_items['unit_id'][$i];
+                    $item->unit_id               = isset($pr_items['unit_id'][$i]) ? $pr_items['unit_id'][$i] : '';
                     $item->item_description      = $item_description;
                     $item->add_description       = $pr_items['add_description'][$i];
                     $item->quantity              = $pr_items['quantity'][$i];
                     $item->item_price            = $pr_items['item_price'][$i];
                     $item->total_amount          = $pr_items['total_amount'][$i];
+                    $item->date                  = $model->date_created;
 
                     $total_amount += $pr_items['total_amount'][$i];
 
-                    if ( $item->save() ) {
+                    /*if ( $item->save() ) { // PROCESS TO SAVE DEDUCTIONS IN PPMP/TABLE ppmp_item_deduction
 
                         $deduct  = new PpmpItemDeduction();
 
@@ -192,6 +196,14 @@ class PrReportController extends Controller
                             if ( $ppmp->save()) {
                                 $result = true;  
                             }
+                        }
+                    }*/
+
+                    if ( $item->save() ) {
+                        $ppmp    = Ppmp::findOne(['ppmp_id' => $pr_items['ppmp_id'][$i]]);
+                        $ppmp->deduction = $ppmp->deduction + $item->total_amount;
+                        if ( $ppmp->save()) {
+                            $result = true;  
                         }
                     }
                 }

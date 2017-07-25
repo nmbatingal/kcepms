@@ -18,7 +18,7 @@ class LibItemSubgeneric extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'lib_item_subgeneric';
+        return 'kc_epms.lib_item_subgeneric';
     }
 
     /**

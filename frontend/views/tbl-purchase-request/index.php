@@ -129,9 +129,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'class'=>'kv-align-center kv-align-middle',
                 ],
-                'width' => '200px',
+                'width' => '150px',
             ],
             // 'date_encoded',
+            [
+                'attribute' => 'date_encoded',
+                'label' => 'Date',
+                'value' => function($model){
+                    $date = date("M-d-Y", strtotime($model['date_encoded']));
+                    $time = date("H:i:s", strtotime($model['date_encoded']));
+                    return $date . '<br><i class="text-red">'.$time.'</i>';
+                },
+                'format' => 'raw',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'width' => '100px',
+            ],
             // 'place:ntext',
             // 'responsible',
             // 'prov_code',
