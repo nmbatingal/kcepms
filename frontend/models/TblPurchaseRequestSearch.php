@@ -15,6 +15,7 @@ class TblPurchaseRequestSearch extends TblPurchaseRequest
     /**
      * @inheritdoc
      */
+
     public function rules()
     {
         return [
@@ -63,6 +64,8 @@ class TblPurchaseRequestSearch extends TblPurchaseRequest
         }
 
         // grid filtering conditions
+        $query->joinWith('prReport');
+
         $query->andFilterWhere([
             'doc_date' => $this->doc_date,
             'tot_amount' => $this->tot_amount,
