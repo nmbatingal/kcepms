@@ -43,20 +43,85 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="tbl-purchase-request-index content-body">
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'pr_no',
+    <?php
+        $column = [
+            [
+                'class' => SerialColumn::className(),
+                'header' => false,
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+            ],
+            //'pr_no',
+            [
+                'attribute' => 'pr_no',
+                'label' => 'PR No',
+                'value' => 'pr_no',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                    'style'=>'font-weight: bold',
+                ],
+                'width' => '150px',
+            ],
             //'doc_type_id',
-            'div_id',
+            //'div_id',
+            [
+                'attribute' => 'div_id',
+                'label' => 'Office',
+                'value' => 'div_id',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-left kv-align-middle',
+                ],
+                'width' => '150px',
+            ],
             //'unit_id',
             //'doc_date',
-            'purpose',
-            'tot_amount',
-            'requested_by',
+            //'purpose',
+            [
+                'attribute' => 'purpose',
+                'label' => 'Purpose',
+                'value' => 'purpose',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-left kv-align-middle',
+                    'style'=>'max-width: 250px; white-space: normal;',
+                ],
+            ],
+            //'tot_amount',
+            [
+                'attribute' => 'tot_amount',
+                'label' => 'Cert. Amount',
+                'value' => 'tot_amount',
+                'format' => ['decimal', 2],
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-right kv-align-middle',
+                ],
+                'width' => '150px',
+            ],
+            //'requested_by',
+            [
+                'attribute' => 'requested_by',
+                'label' => 'Requested By',
+                'value' => 'requested_by',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'width' => '200px',
+            ],
             // 'date_encoded',
             // 'place:ntext',
             // 'responsible',
@@ -64,9 +129,60 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'city_code',
             // 'brgy_code',
             // 'encoded_by',
+<<<<<<< HEAD
             'username',
 
             // ['class' => 'yii\grid\ActionColumn'],
         ],
+=======
+            //'username',
+            [
+                'attribute' => 'username',
+                'label' => 'Encoder',
+                'value' => 'username',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'width' => '100px',
+            ],
+        ]; 
+    ?>
+
+    <?= GridView::widget([
+        'id' => 'grid-purchase-request',
+        'dataProvider'=>$dataProvider,
+        'filterModel'=>$searchModel,
+        'columns' => $column,
+        'tableOptions'=>[
+            'id'=>'table-grid-ppmp',
+        ],
+        'floatHeader' => true,
+        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+        'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+        'rowOptions'=>[
+            'height' => '50px',
+        ],
+        'toolbar'=> false,
+        'pjax'=>true,
+        //'showPageSummary'=>true,
+        'bordered'=>true,
+        'striped'=>true,
+        'condensed'=>true,
+        'responsive'=>true,
+        'hover'=>true,
+        'panel'=> [
+            'heading'=>'&nbsp;',
+            'headingOptions' => [
+                'class' => 'box-header box-solid header-inspinia no-border',
+            ],
+            'before' => false,
+            'after' => false,
+        ],
+        'resizableColumns'=>false,
+        'persistResize'=>true,
+>>>>>>> a061c6fa84226ae2e87c35a20b54c4c58354be42
     ]); ?>
 </div>

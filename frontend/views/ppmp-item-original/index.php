@@ -441,6 +441,7 @@ $this->params['breadcrumbs'][] = 'PPMP Original';
         'dataProvider'=>$dataProvider,
         //'filterModel'=>$searchModel,
         'columns'=> $column,
+        'floatHeader' => true,
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
         'containerOptions'=>['style'=>'overflow: auto;'],

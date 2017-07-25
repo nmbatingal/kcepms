@@ -53,10 +53,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
         $column = [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => SerialColumn::className(),
+                'header' => false,
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+            ],
 
-            'item_id',
-            'item_category_id',
+            //'item_id',
+            //'item_category_id',
+            [
+                'attribute' => 'item_category_id',
+                'label' => 'Category',
+                'filter' => false,
+                'value' => 'item_category_id',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => function($model) {
+                    $class = 'kv-align-left kv-align-middle bg-olive col-pr-category';
+                    $style = 'font-size: 16px; font-weight: bold;';
+                    $key = $model['ppmp_item_cat_id'];
+                    return [
+                        'class' => $class,
+                        'style' => $style,
+                        'data-key' => $key,
+                    ];
+                },
+                'group' => true,
+                'groupedRow' => true,
+                'groupOddCssClass'=>'bg-olive',
+                'groupEvenCssClass'=>'bg-olive',
+            ],
             'generic_id',
             'subgeneric_id',
             'item_description:ntext',
@@ -73,13 +102,21 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <?= GridView::widget([
+<<<<<<< HEAD
         'id' => 'grid-ppmp',
+=======
+        'id' => 'grid-lib-item',
+>>>>>>> a061c6fa84226ae2e87c35a20b54c4c58354be42
         'dataProvider'=>$dataProvider,
         'filterModel'=>$searchModel,
         'columns' => $column,
         'tableOptions'=>[
             'id'=>'table-grid-ppmp',
         ],
+<<<<<<< HEAD
+=======
+        'floatHeader' => true,
+>>>>>>> a061c6fa84226ae2e87c35a20b54c4c58354be42
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
         'toolbar'=> false,
