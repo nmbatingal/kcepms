@@ -35,8 +35,8 @@ class PrItemDetails extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pr_id', 'item_type', 'ppmp_item_original_id', 'quantity', 'status'], 'integer'],
-            [['item_description'], 'string'],
+            [['pr_id', 'item_type', 'ppmp_item_original_id', 'quantity', 'status', 'ppmp_id', 'item_id'], 'integer'],
+            [['item_description', 'date'], 'string'],
             [['item_price', 'total_amount'], 'number'],
             [['group_label'], 'string', 'max' => 200],
             [['add_description', 'unit_id'], 'string', 'max' => 100],
@@ -53,6 +53,8 @@ class PrItemDetails extends \yii\db\ActiveRecord
             'pr_id' => 'Pr ID',
             'item_type' => 'Item Type',
             'ppmp_item_original_id' => 'Ppmp Item Original ID',
+            'ppmp_id' => 'PPMP ID',
+            'item_id' => 'Item ID',
             'group_label' => 'Group Label',
             'unit_id' => 'Unit ID',
             'item_description' => 'Item Description',
@@ -60,6 +62,7 @@ class PrItemDetails extends \yii\db\ActiveRecord
             'quantity' => 'Quantity',
             'item_price' => 'Item Price',
             'total_amount' => 'Total Amount',
+            'date' => 'Date',
             'status' => 'Status',
         ];
     }

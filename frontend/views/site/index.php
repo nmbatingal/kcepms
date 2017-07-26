@@ -48,4 +48,7 @@ $this->title = 'Dashboard';
 		</div>
 	</div>
 
+	Dashboard
+	<?= Yii::$app->getRequest()->serverName ?>
+
 </div>

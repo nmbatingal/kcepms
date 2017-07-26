@@ -166,9 +166,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'date_created',
                 'label'=>'Tracker Created',
                 'value'=>function($model){
-                    $date = $model->date_created;
-                    return date_format(date_create($date), "M d, Y");
+                    $date = date("M-d-Y", strtotime($model['date_created']));
+                    $time = date("H:i:s", strtotime($model['date_created']));
+                    return $date . '<br><i class="text-red">'.$time.'</i>';
                 },
+                'format' => 'raw',
                 'headerOptions'=>[
                     'class'=>'kv-align-center kv-align-middle',
                 ],
