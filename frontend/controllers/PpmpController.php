@@ -14,6 +14,7 @@ use frontend\models\PpmpSearch;
 use common\models\PpmpCategory;
 use common\models\PpmpItemOriginal;
 use common\models\LibItems;
+use frontend\models\LibItemsSearch;
 
 /**
  * PpmpController implements the CRUD actions for Ppmp model.
@@ -294,6 +295,9 @@ class PpmpController extends Controller
 
         $result = $command->queryAll();*/
 
+        $searchModel = new LibItemsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         $lib_items = LibItems::find()->all();
         $model     = Ppmp::findOne(['ppmp_id' => $ppmp_id]);
 
@@ -301,13 +305,34 @@ class PpmpController extends Controller
 
             Yii::$app->response->format = Response::FORMAT_JSON;
             return $this->renderAjax('_pr-ppmp', [
-                //'query' => $result,
                 'query' => $lib_items,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
                 'model' => $model,
             ]);
 
         } else {
             return '';
         }
+    }
+
+    public function actionLoadLibSearch()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $searchModel = new LibItemsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+        
+        if(isset($_GET['page']) && isset($_GET['per-page'])) {
+            $dataProvider->pagination->page     = $_GET['page'];
+            $dataProvider->pagination->pageSize = $_GET['per-page'];
+        }
+
+        return $this->renderAjax('_load-pr-ppmp', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

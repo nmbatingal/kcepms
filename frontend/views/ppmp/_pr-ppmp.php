@@ -1,9 +1,11 @@
 <?php
-
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use yii\bootstrap\Modal;
+
+/*use kartik\grid\GridView;
+use kartik\grid\ActionColumn;
+use kartik\grid\SerialColumn;*/
 ?>
 
 <style>
@@ -19,7 +21,6 @@ use yii\bootstrap\Modal;
         text-align: center !important;
         vertical-align: middle !important;
     }
-
     .table-ppmp-items th.col-2,
     .table-ppmp-items th.col-4,
     .table-ppmp-items th.col-5,
@@ -32,28 +33,23 @@ use yii\bootstrap\Modal;
     .table-ppmp-items td.col-7 {
         width: 10%;
     }
-
     .table-ppmp-items th.col-3,
     .table-ppmp-items td.col-3 {
         width: 40%;
     }
-
     .table-ppmp-items th.col-8,
     .table-ppmp-items td.col-8 {
         width: 4%;
     }
-
     .table-ppmp-items td.col-2,
     .table-ppmp-items td.col-4 {
         text-align: center !important;
         vertical-align: middle !important;
     }
-
     .table-ppmp-items td.col-6 {
         text-align: right !important;
         vertical-align: middle !important;
     }
-
     input[name=total] {
         width: 100%;
         border: none;
@@ -85,7 +81,6 @@ use yii\bootstrap\Modal;
                         <span class="info-box-number">
                             <?php 
                                 $budget = $model['budget'];
-
                                 echo number_format($budget, 2);
                             ?>
                         </span>
@@ -103,11 +98,9 @@ use yii\bootstrap\Modal;
                             <?php 
                                 $budget = $model['budget'];
                                 $deduct = $model['deduction'];
-
                                 if ( !empty($deduct) ) {
                                     $budget = $budget - $deduct;
                                 }
-
                                 echo number_format($budget, 2);
                             ?>
                         </span>
@@ -128,7 +121,7 @@ use yii\bootstrap\Modal;
         </div>
     </div>
 
-    <!-- <div class="box box-solid box-default">
+    <div class="box box-solid box-default">
         <div class="box-header with-border">
             <h3 class="box-title"><b>Item Overview</b></h3>
         </div>
@@ -136,9 +129,9 @@ use yii\bootstrap\Modal;
             <div id="item-overview">
             </div>
         </div>
-    </div> -->
+    </div>
 
-    <div class="box box-solid">
+    <div class="box box-solid hidden">
         <div class="box-header with-border header-inspinia">
             <h3 class="box-title">Items</h3>
             <span class="pull-right" style="color:#fff"><b>showing <?= count($query) ?> results</b></span>
@@ -180,19 +173,15 @@ use yii\bootstrap\Modal;
                                         Html::hiddenInput('description', $item['item_description'], ['id' => 'description-'.$i]).
                                     '</td>
                                     <td class="col-4">';
-
                                         if ( $item['remaining'] != NULL ) {
                                             echo Html::textInput('count', $item['remaining'], ['id' => 'count-'.$i, 'style' => 'text-align:center']);
                                         } else {
                                             echo Html::textInput('count', $item['total_count'], ['id' => 'count-'.$i, 'style' => 'text-align:center']);
                                         }
-
                             echo   '</td>
                                     <td class="col-5">';
                                         if ( $item['remaining'] == NULL ) {
-
                                             if ( $item['total_count'] != 0 ) {
-
                                                 echo Html::input('number', 'quantity', 0, [
                                                     'min'     => 0, 'step' => 1,
                                                     'max'     => $item['total_count'],
@@ -200,7 +189,6 @@ use yii\bootstrap\Modal;
                                                     'class'   => 'form-control',
                                                     'onkeyup' => 'modalQuantity(this)',
                                                 ]);
-
                                             }
                                         } elseif ( $item['remaining'] > 0 ) {
                                             echo Html::input('number', 'quantity', 0, [
@@ -211,7 +199,6 @@ use yii\bootstrap\Modal;
                                                     'onkeyup' => 'modalQuantity(this)',
                                                 ]);
                                         }
-
                             echo    '</td>
                                     <td class="col-6">'.
                                         number_format($item['item_price'], 2).
@@ -254,26 +241,20 @@ use yii\bootstrap\Modal;
                                         $generic     = isset($item['generic_id']) ? $item->libGeneric['name'].'&nbsp;' : '';
                                         $subgeneric  = isset($item['sub_generic_id']) ? $item->libSubGeneric['name'].'&nbsp;' : '';
                                         $description = $subgeneric.$generic.' ('.$item['description'].')';
-
                                         echo $description;
-
                                         /*Html::a($item['item_description'], ['ppmp-item-original/per-item', 'id' => $item['ppmp_item_original_id']], ['class' => 'link-ppmp-item']).*/
                                         echo Html::hiddenInput('description', $description, ['id' => 'description-'.$i]);
                             echo    '</td>
                                     <td class="col-4">';
-
                                         /*if ( $item['remaining'] != NULL ) {
                                             echo Html::textInput('count', $item['remaining'], ['id' => 'count-'.$i, 'style' => 'text-align:center']);
                                         } else {
                                             echo Html::textInput('count', $item['total_count'], ['id' => 'count-'.$i, 'style' => 'text-align:center']);
                                         }*/
-
                             echo   '</td>
                                     <td class="col-5">';
                                         /*if ( $item['remaining'] == NULL ) {
-
                                             if ( $item['total_count'] != 0 ) {
-
                                                 echo Html::input('number', 'quantity', 0, [
                                                     'min'     => 0, 'step' => 1,
                                                     'max'     => $item['total_count'],
@@ -281,7 +262,6 @@ use yii\bootstrap\Modal;
                                                     'class'   => 'form-control',
                                                     'onkeyup' => 'modalQuantity(this)',
                                                 ]);
-
                                             }
                                         } elseif ( $item['remaining'] > 0 ) {
                                             echo Html::input('number', 'quantity', 0, [
@@ -298,7 +278,6 @@ use yii\bootstrap\Modal;
                                                 'class'   => 'form-control',
                                                 'onkeyup' => 'modalQuantity(this)',
                                             ]);
-
                             echo    '</td>
                                     <td class="col-6">'.
                                         number_format($item['est_price'], 2).
@@ -329,5 +308,12 @@ use yii\bootstrap\Modal;
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div class="load-items-list">
+        <?= $this->renderAjax('_load-pr-ppmp', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+        ])?>
     </div>
 </div>
