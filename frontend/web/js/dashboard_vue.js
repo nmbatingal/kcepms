@@ -132,7 +132,7 @@ $(document).ready(function(){
                         {
                             name: 'Year 1900',
                             data: [133, 156, 947, 408, 6]
-                        }, 
+                        },
                         {
                             name: 'Year 2012',
                             data: [1052, 954, 4250, 740, 38]
@@ -144,7 +144,6 @@ $(document).ready(function(){
         },
         computed: {}
     });
-
     dashboard.init_charts();
 
 });

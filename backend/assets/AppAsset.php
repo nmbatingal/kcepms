@@ -20,7 +20,8 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/vue.js',
         'js/highcharts/code/highcharts.js',
-        'js/dashboard_vue.js',
+        // 'js/dashboard_vue.js',
+        //'js/vue_components/procurement_charts.js',
 
         'js/js-button-actions.js',
         'js/js-modal.js',

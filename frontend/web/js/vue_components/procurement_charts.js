@@ -1,0 +1,1 @@
+Vue.component('procurement_charts');
