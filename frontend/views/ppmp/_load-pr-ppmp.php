@@ -8,6 +8,8 @@ use yii\widgets\Pjax;
 use kartik\grid\SerialColumn;
 use kartik\grid\ActionColumn;
 use kartik\grid\GridView;
+
+use common\models\LibItems;
 ?>
 
 <div class="load-pr-ppmp">
@@ -86,7 +88,6 @@ use kartik\grid\GridView;
         'resizableColumns'=>false,
         'persistResize'=>true,
     ]); */?>
-
     <?php
         $column = [
 
@@ -101,9 +102,7 @@ use kartik\grid\GridView;
                 'label' => 'Unit of Measurement',
                 'value' => function($model){
                     $i = $model->item_id;
-
-                    $html = Html::hiddenInput('item_id', $model['item_id'], ['id' => 'item_id-'.$i]);
-
+                    $html = Html::textInput('item_id', $model['item_id'], ['id' => 'item_id-'.$i]);
                     return $html;
                 },
                 'format' => 'raw',
@@ -116,6 +115,29 @@ use kartik\grid\GridView;
                 'width' => '100px',
             ],
             [
+                'attribute' => 'full_description',
+                'label' => 'Item Description',
+                /*'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(LibItems::find()->all(), 'item_id', function($model){
+                    $full_description = $model->libSubGeneric['name'].' '.$model->libGeneric['name'].' ('.$model['description'].')';
+                    return $full_description;
+                }), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Search unit ...', 'style' => 'display: block',],*/
+                'value' => function($model){
+                    $full_description = $model->libSubGeneric['name'].' '.$model->libGeneric['name'].' ('.$model['description'].')';
+                    return $full_description;
+                },
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-left kv-align-middle',
+                ],
+            ],
+            /*[
                 'attribute' => 'description',
                 'label' => 'Item Description',
                 'value' => 'description',
@@ -125,7 +147,7 @@ use kartik\grid\GridView;
                 'contentOptions' => [
                     'class'=>'kv-align-left kv-align-middle',
                 ],
-            ],
+            ],*/
         ];
     ?>
 

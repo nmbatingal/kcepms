@@ -16,7 +16,6 @@ class LibItemsSearch extends LibItems
      * @inheritdoc
      */
     public $full_description;
-
     public function rules()
     {
         return [
@@ -46,13 +45,25 @@ class LibItemsSearch extends LibItems
     {
         $query = LibItems::find();
 
+        $query->select(['*', 'CONCAT( COALESCE(lib_sub_generic.name, "")," ", COALESCE(lib_generic.name, ""), "(", COALESCE(lib_items.description,""), ")") AS full_description']);
+        $query->joinWith(['libSubGeneric','libGeneric']);
+        //$query->leftJoin('lib_generic', 'lib_generic.generic_id = lib_items.generic_id');
+        //$query->leftJoin('lib_sub_generic', 'lib_sub_generic.generic_id = lib_generic.generic_id');
         // add conditions that should always apply here
+
+        /***
+            SELECT i.item_id, CONCAT( COALESCE(sg.name, '')," ", COALESCE(g.name, ''), "(", i.description, ")") AS full_description,
+                sg.sub_generic_id AS subgen, g.generic_id
+            FROM lib_items i 
+                LEFT JOIN lib_sub_generic sg ON sg.sub_generic_id = i.sub_generic_id
+                LEFT JOIN lib_generic g ON g.generic_id = i.generic_id
+        **/
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => 10,
-                'route' => 'ppmp/load-lib-search',
+                //'route' => 'ppmp/load-lib-search',
             ],
         ]);
 
@@ -65,9 +76,6 @@ class LibItemsSearch extends LibItems
         }
 
         // grid filtering conditions
-        $query->joinWith('libGeneric');
-        $query->joinWith('libSubGeneric');
-
         $query->andFilterWhere([
             'item_id' => $this->item_id,
             'generic_id' => $this->generic_id,
@@ -78,7 +86,9 @@ class LibItemsSearch extends LibItems
         ]);
 
         $query->andFilterWhere(['like', 'date_added', $this->date_added])
-            ->andFilterWhere(['like', 'description', $this->description])
+            //->andFilterWhere(['like', 'description', $this->description])
+            //->andFilterWhere(['like', 'full_description', $this->full_description])
+            ->andFilterWhere(['like', 'CONCAT( COALESCE(lib_sub_generic.name, "")," ", COALESCE(lib_generic.name, ""), "(", COALESCE(lib_items.description,""), ")")', $this->full_description])
             ->andFilterWhere(['like', 'barcode', $this->barcode])
             ->andFilterWhere(['like', 'est_price', $this->est_price]);
 

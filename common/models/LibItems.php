@@ -23,6 +23,8 @@ class LibItems extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $full_description;
+
     public static function tableName()
     {
         return 'supply_procurement_system.lib_items';
@@ -44,7 +46,7 @@ class LibItems extends \yii\db\ActiveRecord
         return [
             [['est_price'], 'number'],
             [['generic_id', 'sub_generic_id', 'uacs_id', 'item_cat_id', 'item_status'], 'integer'],
-            [['date_added'], 'safe'],
+            [['date_added', 'full_description'], 'safe'],
             [['description'], 'string', 'max' => 500],
             [['barcode'], 'string', 'max' => 50],
         ];

@@ -53,4 +53,12 @@ class LibSubGeneric extends \yii\db\ActiveRecord
             'is_active' => 'Is Active',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLibGeneric()
+    {
+        return $this->hasOne(LibGeneric::className(), ['generic_id' => 'generic_id']);
+    }
 }

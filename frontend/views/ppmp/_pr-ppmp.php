@@ -313,6 +313,7 @@ use kartik\grid\SerialColumn;*/
         <?= $this->renderAjax('_load-pr-ppmp', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'ppmp' => $model,
         ])?>
     </div>
 </div>
