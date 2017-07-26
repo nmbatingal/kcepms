@@ -102,7 +102,7 @@ use kartik\grid\GridView;
                 'value' => function($model){
                     $i = $model->item_id;
 
-                    $html = Html::textInput('item_id', $model['item_id'], ['id' => 'item_id-'.$i]);
+                    $html = Html::hiddenInput('item_id', $model['item_id'], ['id' => 'item_id-'.$i]);
 
                     return $html;
                 },
@@ -131,12 +131,27 @@ use kartik\grid\GridView;
 
     <?php Pjax::begin(['id' => 'load-ppmp-items', 'timeout' => false, 'enablePushState' => false, /*'clientOptions' => ['method' => 'POST']*/]); ?>   
     <?= GridView::widget([
+        'id' => 'ppmp-items',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'filterUrl' => Url::toRoute('ppmp/load-lib-search'),
         'columns' => $column,
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+        'striped'=>true,
+        'condensed'=>true,
+        'responsive'=>true,
+        'hover'=>true,
+        'panel'=> [
+            'heading'=>'<b>ITEMS</b>',
+            'headingOptions' => [
+                'class' => 'box-header box-solid header-inspinia no-border',
+            ],
+            'before' => false,
+            'after' => false,
+        ],
+        'resizableColumns'=>false,
+        'persistResize'=>true,
     ]); ?>
     <?php Pjax::end(); ?>
 </div>

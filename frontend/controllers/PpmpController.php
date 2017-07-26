@@ -298,7 +298,8 @@ class PpmpController extends Controller
         $searchModel = new LibItemsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $lib_items = LibItems::find()->all();
+        //$lib_items = LibItems::find()->all();
+        $lib_items = 1;
         $model     = Ppmp::findOne(['ppmp_id' => $ppmp_id]);
 
         if (!empty($lib_items)) {
@@ -324,9 +325,10 @@ class PpmpController extends Controller
 
         $searchModel = new LibItemsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
-        
+
         if(isset($_GET['page']) && isset($_GET['per-page'])) {
-            $dataProvider->pagination->page     = $_GET['page'];
+            $page = $_GET['page'];
+            $dataProvider->pagination->page     = $page - 1;
             $dataProvider->pagination->pageSize = $_GET['per-page'];
         }
 

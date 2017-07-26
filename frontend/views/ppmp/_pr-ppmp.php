@@ -121,7 +121,7 @@ use kartik\grid\SerialColumn;*/
         </div>
     </div>
 
-    <div class="box box-solid box-default">
+    <div class="box box-solid box-default hidden">
         <div class="box-header with-border">
             <h3 class="box-title"><b>Item Overview</b></h3>
         </div>
@@ -224,8 +224,7 @@ use kartik\grid\SerialColumn;*/
                                 </tr>
                             ';
                         }
-                    ?> -->
-                    <?php
+                    ?> 
                         $no = 0;
                         foreach ($query as $i => $item) {
                             $no++;
@@ -304,7 +303,7 @@ use kartik\grid\SerialColumn;*/
                                 </tr>
                             ';
                         }
-                    ?>
+                    ?> -->
                 </tbody>
             </table>
         </div>

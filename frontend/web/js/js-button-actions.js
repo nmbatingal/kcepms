@@ -462,22 +462,34 @@ function ppmpListItems(thisInput, url) {
     var select  = $(thisInput).val();
     var href    = url;
 
-    $('div#ppmp-table').html(spinRefreshTop());
+    if ( select > 0 )
+    {
+        $('div#ppmp-table').html(spinRefreshTop());
 
-    $.ajax({
-        url: href,
-        type: 'POST',
-        data: {
-            'ppmp_id' : select,
-        },
-        success: function(data) {
-            $('div#ppmp-table').html(data);
-        },
-        error: function(xhr, textStatus, errorThrown){
-            alert(errorThrown);
-        }
-    });
+        $.ajax({
+            url: href,
+            type: 'POST',
+            data: {
+                'ppmp_id' : select,
+            },
+            success: function(data) {
+                $('div#ppmp-table').html(data);
+            },
+            error: function(xhr, textStatus, errorThrown){
+                swal("Error!", errorThrown, "error");
+            }
+        }); 
+    } else {
+        $('div#ppmp-table').html('');
+    }
+        
 }
+
+/*** BUTTON MODAL SELECT PPMP PR ITEM ***/
+$(document).on('click','ul.pagination li',function(event, jqXHR, settings) {
+    //$.pjax.reload({container: "#ppmp-items", timeout: false});
+    console.log('here');
+});
 
 /*** BUTTON MODAL SELECT PPMP PR ITEM ***/
 $(document).on('click','.btn-add-pr-item',function(event, jqXHR, settings) {
