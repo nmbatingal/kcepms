@@ -236,7 +236,13 @@ class PrReportController extends Controller
                 }
             }
 
-            return $this->redirect(['pr-report/view', 'id' => $model->pr_id]);
+            //return $this->redirect(['pr-report/view', 'id' => $model->pr_id]);
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+                'model'  => $model,
+                'url'    => Url::toRoute(['pr-report/view', 'id' => $model->pr_id]),
+            ];
         }
     }
 

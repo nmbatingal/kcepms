@@ -492,7 +492,7 @@ $(document).on('click','ul.pagination li',function(event, jqXHR, settings) {
 });
 
 /*** BUTTON MODAL SELECT PPMP PR ITEM ***/
-$(document).on('click','.btn-add-pr-item',function(event, jqXHR, settings) {
+/*$(document).on('click','.btn-add-pr-item',function(event, jqXHR, settings) {
     var button   = $(this);
     var label    = $('input.group-label');
     var label_ct = label.length;
@@ -510,6 +510,76 @@ $(document).on('click','.btn-add-pr-item',function(event, jqXHR, settings) {
     var price    = $('input#price-'+id).val();
     var total    = $('input#total-'+id).val();
     var ppmp_id  = $('input#ppmp_id-'+id).val();
+
+    if ( label.length == 0 ) {
+        label_id = '';
+    } else {
+        label_ct = parseInt(label_ct - 1);
+        label_id = $('#group-label-' + label_ct).val();
+    }
+
+    var $html    = '<tr id="row-' + row_ct + '" class="pr-items">' +
+                        '<td class="col-1">' +
+                            '<input id="category-' + row_ct + '" type="text" name="category" value="'+category.text()+'">' +
+                            '<input id="item-type-' + row_ct + '" type="hidden" name="PrItemDetails[item_type][]" value="'+category.val()+'">' +
+                            '<input id="label-' + row_ct + '" type="hidden" name="PrItemDetails[group_label][]" value="' + label_id + '">' +
+                            '<input id="ppmp-id-' + row_ct + '" type="hidden" name="PrItemDetails[ppmp_id][]" value="' + ppmp_id + '">' +
+                        '</td>' +
+                        '<td class="col-2">' +
+                            '<input id="unit-id-' + row_ct + '" type="text" name="PrItemDetails[unit_id][]" class="unit-id" placeholder="unit" value="'+unit+'">' +
+                        '</td>' +
+                        '<td class="col-3">' +
+                            '<input id="item-id-' + row_ct + '" type="hidden" name="PrItemDetails[ppmp_item_original_id][]" value="'+item_id+'">' +
+                            '<input id="item-description-' + row_ct + '" type="text" class="item-description" name="PrItemDetails[item_description][]" min="0" step="0.01" placeholder="item_description" value="'+descr+'">' +
+                        '</td>' +
+                        '<td class="col-4">' +
+                            '<input id="add-description-' + row_ct + '" type="text" class="add-description" name="PrItemDetails[add_description][]" min="0" step="0.01" placeholder="(no. of dates)" onkeyup="changeDays(this)">' +
+                        '</td>' +
+                        '<td class="col-5">' +
+                            '<input id="item-quantity-' + row_ct + '" type="number" class="quantity" name="PrItemDetails[quantity][]" min="0" step="1" value="'+quantity+'" onkeyup="changeQuantity(this)">' +
+                        '</td>' +
+                        '<td class="col-6">' +
+                            '<input id="item-price-' + row_ct + '" type="number" name="PrItemDetails[item_price][]" min="0" step="0.01" value="'+price+'" onkeyup="changePrice(this)">' +
+                        '</td>' +
+                        '<td class="col-7">' +
+                            '<input id="item-total-' + row_ct + '" type="number" class="item-total" name="PrItemDetails[total_amount][]" min="0" step="0.01" value="'+total+'" readonly="readonly">' +
+                        '</td>' +
+                        '<td class="col-8">' +
+                            '<button type="button" class="btn btn-sm btn-danger btn-remove-item"><i class="fa fa-remove"></i></button>' +
+                        '</td>' +
+                   '</tr>';
+
+    $($html).insertBefore('.tab-option');
+    $('#row-count').val( parseInt(row_ct) + 1 );
+
+    button.html('<i class="fa fa-remove"></i>');
+    button.removeClass('btn-success btn-add-pr-item');
+    button.addClass('btn-danger btn-remove-pr-item');
+    button.attr('id', 'row-' + row_ct);
+
+    finalTotalCost();
+});*/
+
+/*** BUTTON MODAL SELECT PPMP PR ITEM ***/
+$(document).on('click','.btn-add-pr-item',function(event, jqXHR, settings) {
+    var button   = $(this);
+    var label    = $('input.group-label');
+    var label_ct = label.length;
+    var row_ct   = $('#row-count').val();
+    var label_id;
+
+    // PPMP PR ITEMS SELECTED
+    var split_id = button.attr('data-id').split('-');
+    var id       = split_id[2];
+    var unit     = $('input#unit-'+id).length > 0 ? $('input#unit-'+id).val() : '';
+
+    var item_id  = $('input#item_id-'+id).val();
+    var category = $('select#select-category option:selected');
+    var descr    = $('input#description-'+id).val();
+    var quantity = 0;
+    var total    = 0;
+    var price    = $('input#price-'+id).val();
+    var ppmp_id  = $('select#select-ppmp').val();
 
     if ( label.length == 0 ) {
         label_id = '';
@@ -759,6 +829,39 @@ function changePrice(thisInput) {
 
     finalTotalCost();
 }
+
+/*** SUBMIT PR PPMP FORM ***/
+$(document).on('beforeSubmit', '#frm-pr', function(event, jqXHR, settings) {    
+    event.preventDefault();
+    var form = $(this);
+    
+    $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: form.serialize(),
+        success: function(data) {
+
+            if (data.result) {
+                swal({
+                    title: 'Done!',
+                    text:  'Purchase Request ' + data.model['pr_no'] +' successfully saved!',
+                    type:  "success",
+                    showCancelButton: false,
+                    closeOnConfirm: false,
+                }, function () {
+                    window.open(data.url, '_self');
+                });
+            } else {
+                swal("Error!", "Purchase Request failed to save!", "error");
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){
+            swal("System Error!", "Please try again", "error");
+        }
+    });
+
+    return false;
+});
 
 /*** SPPMP PR ITEMS SELECT LABEL OPTIONS ***/
 $(document).on('change','.select-label-sppmp',function(event, jqXHR, settings) {

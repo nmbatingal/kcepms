@@ -45,7 +45,7 @@ class LibItemsSearch extends LibItems
     {
         $query = LibItems::find();
 
-        $query->select(['*', 'CONCAT( COALESCE(lib_sub_generic.name, "")," ", COALESCE(lib_generic.name, ""), "(", COALESCE(lib_items.description,""), ")") AS full_description']);
+        $query->select(['*', 'CONCAT( COALESCE(lib_sub_generic.name, "")," ", COALESCE(lib_generic.name, ""), " (", COALESCE(lib_items.description,""), ")") AS full_description']);
         $query->joinWith(['libSubGeneric','libGeneric']);
         //$query->leftJoin('lib_generic', 'lib_generic.generic_id = lib_items.generic_id');
         //$query->leftJoin('lib_sub_generic', 'lib_sub_generic.generic_id = lib_generic.generic_id');
@@ -88,7 +88,7 @@ class LibItemsSearch extends LibItems
         $query->andFilterWhere(['like', 'date_added', $this->date_added])
             //->andFilterWhere(['like', 'description', $this->description])
             //->andFilterWhere(['like', 'full_description', $this->full_description])
-            ->andFilterWhere(['like', 'CONCAT( COALESCE(lib_sub_generic.name, "")," ", COALESCE(lib_generic.name, ""), "(", COALESCE(lib_items.description,""), ")")', $this->full_description])
+            ->andFilterWhere(['like', 'CONCAT( COALESCE(lib_sub_generic.name, "")," ", COALESCE(lib_generic.name, ""), " (", COALESCE(lib_items.description,""), ")")', $this->full_description])
             ->andFilterWhere(['like', 'barcode', $this->barcode])
             ->andFilterWhere(['like', 'est_price', $this->est_price]);
 
