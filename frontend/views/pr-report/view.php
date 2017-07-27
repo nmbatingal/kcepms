@@ -262,8 +262,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <tr data-id="'.$item['pr_item_id'].'">
                                 <td class="col-1">'.++$no.'</td>
                                 <td class="col-2">'.
-                                    Html::textInput('unit_id', $item['unit_id'], ['id' => 'unit-'.$item['pr_item_id'], 'class' => 'form-control item row-'.$item['pr_item_id']]) .
-                                    '<span class="item unit-'.$item['pr_item_id'].'">'.$item['unit_id'].'</span>
+                                    Html::textInput('unit_id', $item->itemUnit['name'], ['id' => 'unit-'.$item['pr_item_id'], 'class' => 'form-control item row-'.$item['pr_item_id']]) .
+                                    '<span class="item unit-'.$item->itemUnit['name'].'">'.$item->itemUnit['name'].'</span>
                                 </td>
                                 <td class="col-3">'.
                                     Html::textInput('item_description', $item['item_description'], ['id' => 'description-'.$item['pr_item_id'], 'class' => 'form-control item row-'.$item['pr_item_id']]) .

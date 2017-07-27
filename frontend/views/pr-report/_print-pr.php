@@ -200,7 +200,7 @@ use yii\helpers\ArrayHelper;
                             echo 
                             "<tr class='td-item'>
                                 <td class='col-center'></td>
-                                <td class='col-center'>". $item['unit_id'] ."</td>
+                                <td class='col-center'>". $item->itemUnit['name'] ."</td>
                                 <td class='col-center'>". 
                                     $item['item_description'];
                                     if(!empty($item['add_description'])) echo ' x '.$item['add_description'];

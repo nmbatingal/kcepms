@@ -571,7 +571,23 @@ $(document).on('click','.btn-add-pr-item',function(event, jqXHR, settings) {
     // PPMP PR ITEMS SELECTED
     var split_id = button.attr('data-id').split('-');
     var id       = split_id[2];
+
     var unit     = $('input#unit-'+id).length > 0 ? $('input#unit-'+id).val() : '';
+
+    var $unitOptions = function () {
+        var tmp = null;
+        $.ajax({
+            'async': false,
+            'type': "POST",
+            'global': false,
+            'dataType': 'html',
+            'url': "/kc-epms/frontend/web/index.php?r=select/unit-options",
+            'success': function (data) {
+                tmp = data;
+            }
+        });
+        return tmp;
+    }();
 
     var item_id  = $('input#item_id-'+id).val();
     var category = $('select#select-category option:selected');
@@ -596,7 +612,8 @@ $(document).on('click','.btn-add-pr-item',function(event, jqXHR, settings) {
                             '<input id="ppmp-id-' + row_ct + '" type="hidden" name="PrItemDetails[ppmp_id][]" value="' + ppmp_id + '">' +
                         '</td>' +
                         '<td class="col-2">' +
-                            '<input id="unit-id-' + row_ct + '" type="text" name="PrItemDetails[unit_id][]" class="unit-id" placeholder="unit" value="'+unit+'">' +
+                            //'<input id="unit-id-' + row_ct + '" type="text" name="PrItemDetails[unit_id][]" class="unit-id" placeholder="unit" value="'+unit+'">' +
+                            '<select id="unit-id-' + row_ct + '" name="PrItemDetails[unit_id][]" class="unit-id">' + $unitOptions + '</select>' +
                         '</td>' +
                         '<td class="col-3">' +
                             '<input id="item-id-' + row_ct + '" type="hidden" name="PrItemDetails[ppmp_item_original_id][]" value="'+item_id+'">' +
@@ -870,6 +887,36 @@ $(document).on('change','.select-label-sppmp',function(event, jqXHR, settings) {
     var label_ct = label.length;
     var row_ct   = $('#row-count').val();
 
+    var $unitOptions = function () {
+        var tmp = null;
+        $.ajax({
+            'async': false,
+            'type': "POST",
+            'global': false,
+            'dataType': 'html',
+            'url': "/kc-epms/frontend/web/index.php?r=select/unit-options",
+            'success': function (data) {
+                tmp = data;
+            }
+        });
+        return tmp;
+    }();
+
+    var $itemOptions = function () {
+        var tmp = null;
+        $.ajax({
+            'async': false,
+            'type': "POST",
+            'global': false,
+            'dataType': 'html',
+            'url': "/kc-epms/frontend/web/index.php?r=select/item-options",
+            'success': function (data) {
+                tmp = data;
+            }
+        });
+        return tmp;
+    }();
+
     if ( option == 1 ) {
         var $html = '<tr class="pr-labels">' +
                         '<td class="col-1"></td>' +
@@ -903,13 +950,17 @@ $(document).on('change','.select-label-sppmp',function(event, jqXHR, settings) {
                             '<input type="hidden" id="label-'+row_ct+'" name="PrItemSppmpDetails[group_label][]" value="'+label_id+'">' +
                         '</td>' +
                         '<td class="col-2">' +
-                            '<input type="text" id="item-description-'+row_ct+'" class="item-description" name="PrItemSppmpDetails[item_description][]" min="0" step="0.01" placeholder="item_description">' +
+                            //'<input type="text" id="item-description-'+row_ct+'" class="item-description" name="PrItemSppmpDetails[item_description][]" placeholder="item_description">' +
+                            '<input list="items" id="item-description-'+row_ct+'" class="item-description" name="PrItemSppmpDetails[item_description][]" placeholder="item_description">' +
+                            '<datalist id="items">' + $itemOptions +'</datalist>' +
+                            //'<select id="item-description-'+row_ct+'" class="item-description" name="PrItemSppmpDetails[item_description][]">'+ $itemOptions +'</select>'+
                         '</td>' +
                         '<td class="col-3">' +
                             '<input type="text" id="add-description-'+row_ct+'" class="add-description" name="PrItemSppmpDetails[add_description][]" min="0" step="0.01" placeholder="(no. of dates)" onkeyup="sppmpDays(this)">' +
                         '</td>' +
                         '<td class="col-4">' +
-                            '<input type="text" id="unit-'+row_ct+'" class="unit" name="PrItemSppmpDetails[unit_id][]" placeholder="unit">' +
+                            //'<input type="text" id="unit-'+row_ct+'" class="unit" name="PrItemSppmpDetails[unit_id][]" placeholder="unit">' +
+                            '<select id="unit-'+row_ct+'" class="unit" name="PrItemSppmpDetails[unit_id][]"' + $unitOptions + '</select>' +
                         '</td>' +
                         '<td class="col-5">' +
                             '<input type="number" id="january-'+row_ct+'" class="month-input month-'+row_ct+'" name="PrItemSppmpDetails[january][]" value="0" step="1" min="0" onkeyup="sppmpMonth(this)">' +

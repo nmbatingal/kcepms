@@ -84,4 +84,12 @@ class PrItemSppmpDetails extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemUnit()
+    {
+        return $this->hasOne(LibItemUnit::className(), ['unit_id' => 'unit_id']);
+    }
 }

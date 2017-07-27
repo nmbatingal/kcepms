@@ -313,7 +313,7 @@ use yii\helpers\ArrayHelper;
                                             $sppmp['item_description'];
                                             if(!empty($sppmp['add_description'])) echo ' x '.$sppmp['add_description'];
                                 echo   '</td>
-                                        <td class="col-2">'.$sppmp['unit_id'].'</td>
+                                        <td class="col-2">'.$sppmp->itemUnit['name'].'</td>
                                         <td class="col-3">'.$sppmp['january'].'</td>
                                         <td class="col-4">'.$sppmp['february'].'</td>
                                         <td class="col-5">'.$sppmp['march'].'</td>

@@ -279,6 +279,7 @@ class PrReportController extends Controller
             $model->tracker_id     = $pr_report['tracker_id'];
             $model->purpose        = $pr_report['purpose'];
             $model->date_created   = $pr_report['date_created'] . ' ' . date("H:i:s");
+            $model->ppmp_mode      = $pr_report['ppmp_mode'];
             $model->encoder        = $pr_report['encoder'];
             $model->pr_type        = $pr_report['pr_type'];
             $model->requested_by   = $pr_report['requested_by'];
@@ -349,7 +350,13 @@ class PrReportController extends Controller
                 }
             }
 
-            return $this->redirect(['pr-report/view', 'id' => $model->pr_id]);
+            //return $this->redirect(['pr-report/view', 'id' => $model->pr_id]);
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'result' => $result,
+                'model'  => $model,
+                'url'    => Url::toRoute(['pr-report/view', 'id' => $model->pr_id]),
+            ];
         }
     }
 
