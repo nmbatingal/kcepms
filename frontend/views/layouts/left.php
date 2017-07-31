@@ -95,6 +95,7 @@
                     ],
                     ['label' => 'PR Tracker', 'icon' => 'list-ul', 'url' => ['pr-tracker/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     ['label' => 'Purchase Requests', 'icon' => 'wpforms', 'url' => ['tbl-purchase-request/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+                    ['label' => 'Logs', 'icon' => 'file-text', 'url' => ['tbl-logs/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     //['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                 ],
