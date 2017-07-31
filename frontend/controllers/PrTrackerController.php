@@ -167,10 +167,10 @@ class PrTrackerController extends Controller
 
                 $log->encoder  = Yii::$app->user->identity->id;
                 $log->action   = 0;
-                $log->tbl_name = "pr_tracker";
-                $log->tbl_col  = "pr_tracker_id";
+                $log->tbl_name = 'pr_tracker';
+                $log->tbl_col  = 'pr_tracker_id';
                 $log->tbl_id   = $model['pr_tracker_id'];
-                $log->details  = "Create Tracker";
+                $log->details  = 'created new tracker with tracking number ##' . $model['tracker_no'].'##.';
                 $log->log_date = date("Y-m-d H:i:s");
 
                 if ( $log->save() ) {
@@ -314,7 +314,19 @@ class PrTrackerController extends Controller
                         }  
                     }
                 } else {
-                    $result = true; 
+                    $log = new TblLogs();
+
+                    $log->encoder  = Yii::$app->user->identity->id;
+                    $log->action   = 2;
+                    $log->tbl_name = "pr_tracker";
+                    $log->tbl_col  = "pr_tracker_id";
+                    $log->tbl_id   = $id;
+                    $log->details  = "Remove Tracker";
+                    $log->log_date = date("Y-m-d H:i:s");
+
+                    if ( $log->save() ) {
+                        $result = true;
+                    }
                 }
             } 
 

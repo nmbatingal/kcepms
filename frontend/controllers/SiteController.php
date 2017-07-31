@@ -113,7 +113,7 @@ class SiteController extends Controller
             if ( $model->login() ) {
 
                 $log->encoder  = Yii::$app->user->identity->id;
-                $log->details  = "Log in";
+                $log->details  = "has logged in ## ##.";
                 $log->log_date = date("Y-m-d H:i:s");
 
                 if ( $log->save() ) {
@@ -140,7 +140,7 @@ class SiteController extends Controller
 
         if ( Yii::$app->user->logout() ) {
             $model->encoder  = $user;
-            $model->details  = "Log out";
+            $model->details  = "logged out ## ##.";
             $model->log_date = date("Y-m-d H:i:s");
 
             if ($model->save()) {
