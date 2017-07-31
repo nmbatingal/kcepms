@@ -14,9 +14,9 @@ use common\models\PrTracker;
 use frontend\models\PrTrackerSearch;
 use common\models\PrReport;
 use frontend\models\PrReportSearch;
-
 use common\models\PrItemDetails;
 use common\models\PrItemSppmpDetails;
+use common\models\TblLogs;
 
 /**
  * PrTrackerController implements the CRUD actions for PrTracker model.
@@ -163,7 +163,19 @@ class PrTrackerController extends Controller
             $model->encoder             = $tracker['encoder'];
             
             if ( $model->save() ) {
-                $result = true;
+                $log = new TblLogs();
+
+                $log->encoder  = Yii::$app->user->identity->id;
+                $log->action   = 0;
+                $log->tbl_name = "pr_tracker";
+                $log->tbl_col  = "pr_tracker_id";
+                $log->tbl_id   = $model['pr_tracker_id'];
+                $log->details  = "Create Tracker";
+                $log->log_date = date("Y-m-d H:i:s");
+
+                if ( $log->save() ) {
+                    $result = true;
+                }
             }
 
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -235,7 +247,19 @@ class PrTrackerController extends Controller
             $model->date_updated        = $tracker['date_updated'];
             
             if ( $model->save() ) {
-                $result = true;
+                $log = new TblLogs();
+
+                $log->encoder  = Yii::$app->user->identity->id;
+                $log->action   = 1;
+                $log->tbl_name = "pr_tracker";
+                $log->tbl_col  = "pr_tracker_id";
+                $log->tbl_id   = $id;
+                $log->details  = "Update Tracker";
+                $log->log_date = date("Y-m-d H:i:s");
+
+                if ( $log->save() ) {
+                    $result = true;
+                }
             }
 
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -268,13 +292,30 @@ class PrTrackerController extends Controller
             $model->status = 0;
             if ($model->save()) {
 
-                $sql   = "UPDATE pr_report SET status=0 WHERE pr_report.tracker_id = $id";
-                $query = Yii::$app->getDb()->createCommand($sql);
+                $select = PrReport::findAll(['tracker_id' => $id]);
+                $sql    = "UPDATE pr_report SET status=0 WHERE pr_report.tracker_id = $id";
+                $query  = Yii::$app->getDb()->createCommand($sql);
 
-                if($query->execute()) {
-                    $result = true;    
+                if ( !empty($select) ) {
+
+                    if ($query->execute()) {
+                        $log = new TblLogs();
+
+                        $log->encoder  = Yii::$app->user->identity->id;
+                        $log->action   = 2;
+                        $log->tbl_name = "pr_tracker";
+                        $log->tbl_col  = "pr_tracker_id";
+                        $log->tbl_id   = $id;
+                        $log->details  = "Remove Tracker";
+                        $log->log_date = date("Y-m-d H:i:s");
+
+                        if ( $log->save() ) {
+                            $result = true;
+                        }  
+                    }
+                } else {
+                    $result = true; 
                 }
-                
             } 
 
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -306,11 +347,29 @@ class PrTrackerController extends Controller
             $model->status = 1;
             if ($model->save()) {
 
-                $sql   = "UPDATE pr_report SET status=1 WHERE pr_report.tracker_id = $id";
-                $query = Yii::$app->getDb()->createCommand($sql);
+                $select = PrReport::findAll(['tracker_id' => $id]);
+                $sql    = "UPDATE pr_report SET status=1 WHERE pr_report.tracker_id = $id";
+                $query  = Yii::$app->getDb()->createCommand($sql);
 
-                if($query->execute()) {
-                    $result = true;    
+                if ( !empty($select) ) {
+
+                    if ($query->execute()) {
+                        $log = new TblLogs();
+
+                        $log->encoder  = Yii::$app->user->identity->id;
+                        $log->action   = 3;
+                        $log->tbl_name = "pr_tracker";
+                        $log->tbl_col  = "pr_tracker_id";
+                        $log->tbl_id   = $id;
+                        $log->details  = "Restore Tracker";
+                        $log->log_date = date("Y-m-d H:i:s");
+
+                        if ( $log->save() ) {
+                            $result = true;
+                        }  
+                    }
+                } else {
+                    $result = true; 
                 }
                 
             } 

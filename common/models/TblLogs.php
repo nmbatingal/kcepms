@@ -34,7 +34,7 @@ class TblLogs extends \yii\db\ActiveRecord
             [['encoder', 'action', 'tbl_id'], 'integer'],
             [['details'], 'string'],
             [['log_date'], 'safe'],
-            [['tbl_name'], 'string', 'max' => 100],
+            [['tbl_name', 'tbl_col'], 'string', 'max' => 100],
         ];
     }
 
@@ -48,6 +48,7 @@ class TblLogs extends \yii\db\ActiveRecord
             'encoder' => 'Encoder',
             'action' => 'Action',
             'tbl_name' => 'Tbl Name',
+            'tbl_col' => 'Tbl Col',
             'tbl_id' => 'Tbl ID',
             'details' => 'Details',
             'log_date' => 'Log Date',

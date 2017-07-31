@@ -16,6 +16,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
+use common\models\TblLogs;
 /**
  * Site controller
  */
@@ -105,8 +106,21 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goHome();
+        $log   = new TblLogs();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ( $model->login() ) {
+
+                $log->encoder  = Yii::$app->user->identity->id;
+                $log->details  = "Log in";
+                $log->log_date = date("Y-m-d H:i:s");
+
+                if ( $log->save() ) {
+                    return $this->goHome();
+                }
+            }
+            
         } else {
             return $this->render('login', [
                 'model' => $model,
@@ -121,9 +135,19 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        $model = new TblLogs();
+        $user  = Yii::$app->user->identity->id;
 
-        return $this->goHome();
+        if ( Yii::$app->user->logout() ) {
+            $model->encoder  = $user;
+            $model->details  = "Log out";
+            $model->log_date = date("Y-m-d H:i:s");
+
+            if ($model->save()) {
+                return $this->goHome();
+            }
+        }
+
         //$this->redirect(Yii::$app->urlManager->createUrl(['site/login']));
     }
 

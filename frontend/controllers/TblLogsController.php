@@ -44,11 +44,14 @@ class TblLogsController extends Controller
         $searchModel = new TblLogsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $model = TblLogs::find()->orderBy('log_date DESC')->all();
+
         if ( Yii::$app->request->isAjax ) {
 
             $html = $this->renderAjax('index', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'model' => $model,
             ]);
 
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -62,6 +65,7 @@ class TblLogsController extends Controller
             return $this->render('index', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'model' => $model,
             ]);
         }
     }

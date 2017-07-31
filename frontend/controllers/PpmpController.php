@@ -15,6 +15,7 @@ use common\models\PpmpCategory;
 use common\models\PpmpItemOriginal;
 use common\models\LibItems;
 use frontend\models\LibItemsSearch;
+use common\models\TblLogs;
 
 /**
  * PpmpController implements the CRUD actions for Ppmp model.
@@ -152,7 +153,19 @@ class PpmpController extends Controller
                 $model->status              = $ppmpData['status'];
 
                 if ( $model->save() ) {
-                    $result = true;
+                    //$result = true;
+                    $log   = new TblLogs();
+
+                    $log->encoder  = Yii::$app->user->identity->id;
+                    $log->action   = 0;
+                    $log->tbl_id   = $model['ppmp_id'];
+                    $log->tbl_name = "ppmp";
+                    $log->details  = "Create PPMP";
+                    $log->log_date = date("Y-m-d H:i:s");
+
+                    if ( $log->save() ) {
+                        $result = true;
+                    }
                 }
             }
 
@@ -175,7 +188,22 @@ class PpmpController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ppmp_id]);
+
+            $log   = new TblLogs();
+
+            $log->encoder  = Yii::$app->user->identity->id;
+            $log->action   = 0;
+            $log->tbl_id   = $id;
+            $log->tbl_name = "ppmp";
+            $log->details  = "Update PPMP";
+            $log->log_date = date("Y-m-d H:i:s");
+
+            if ( $log->save() ) {
+                $result = true;
+                return $this->redirect(['view', 'id' => $model->ppmp_id]);
+            }
+
+            // return $this->redirect(['view', 'id' => $model->ppmp_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -195,9 +223,23 @@ class PpmpController extends Controller
             return $this->goHome();
         }
 
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $log   = new TblLogs();
 
-        return $this->redirect(['index']);
+        if ( $model->delete() ) {
+
+            $log->encoder  = Yii::$app->user->identity->id;
+            $log->action   = 0;
+            $log->tbl_id   = $id;
+            $log->tbl_name = "ppmp";
+            $log->details  = "Delete PPMP";
+            $log->log_date = date("Y-m-d H:i:s");
+
+            if ( $log->save() ) {
+                $result = true;
+                return $this->redirect(['index']);
+            }
+        }
     }
 
     /**
