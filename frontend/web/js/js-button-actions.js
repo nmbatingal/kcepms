@@ -15,6 +15,14 @@ function spinRefreshTop() {
     return $refresh;
 }
 
+function spinOverlay() {
+    var $overlay = '<div class="overlay">' +
+              '<i class="fa fa-refresh fa-spin"></i>' +
+            '</div>';
+
+    return $overlay;
+}
+
 /*** LEFT MENU LINK ACTIONS ***/
 $(document).on('click', '.btn-left-menu', function(event, jqXHR, settings) {
     event.preventDefault();
@@ -847,11 +855,18 @@ function changePrice(thisInput) {
     finalTotalCost();
 }
 
-/*** SUBMIT PR PPMP FORM ***/
+/*** SUBMIT PR FORM ***/
 $(document).on('beforeSubmit', '#frm-pr', function(event, jqXHR, settings) {    
     event.preventDefault();
     var form = $(this);
-    
+
+    swal({
+        title: 'Saving ...',
+        type: 'info',
+        showCancelButton: false,
+        showConfirmButton: false,
+    });
+
     $.ajax({
         url: form.attr('action'),
         type: 'POST',

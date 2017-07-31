@@ -353,10 +353,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= $form->field($pr, 'pr_no')->textInput(['placeholder' => 'PR Number', 'readonly' => 'readonly'])->label('PR Number') ?>
                                 <hr>
                                 <?= $form->field($pr, 'purpose')->textArea(['rows' => 3, 'placeholder' => 'Purpose'])->label('Purpose') ?>
-                                <?= $form->field($pr, 'ppmp_mode')
-                                        ->dropDownList(ArrayHelper::map(PpmpMode::find()->orderBy('description ASC')->all(), 'ppmp_mode_id', 'description'), [
-                                            'placeholder' => 'Mode of Procurement']) ?>
+                                <?php 
+                                    if ( $model['pr_type'] != 0) {
+                                        echo $form->field($pr, 'ppmp_mode')
+                                                ->dropDownList(ArrayHelper::map(PpmpMode::find()->orderBy('description ASC')->all(), 'ppmp_mode_id', 'description'), [
+                                                    'placeholder' => 'Mode of Procurement']);
+                                    }
+                                ?>
+                                
                                 <hr>
+                                
                                 <?php
 
                                     if ( $model['pr_type'] == 0 ) { // PPMP PR
