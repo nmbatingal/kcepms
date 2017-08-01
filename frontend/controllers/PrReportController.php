@@ -17,6 +17,7 @@ use common\models\PpmpItemDeduction;
 use common\models\Ppmp;
 use common\models\TblPurchaseRequest;
 use common\models\TblPrNo;
+use common\models\TblLogs;
 
 /**
  * PrReportController implements the CRUD actions for PrReport model.
@@ -236,7 +237,22 @@ class PrReportController extends Controller
                 }
             }
 
-            //return $this->redirect(['pr-report/view', 'id' => $model->pr_id]);
+            if ($result) {
+                $log   = new TblLogs();
+
+                $log->encoder  = Yii::$app->user->identity->id;
+                $log->action   = 0;
+                $log->tbl_name = "pr_report";
+                $log->tbl_col  = "pr_id";
+                $log->tbl_id   = $model['pr_id'];
+                $log->details  = 'created new <i class="text-orange"><u>purchase request</u></i> with pr number ##'.$model['pr_no'].'##.';
+                $log->log_date = date("Y-m-d H:i:s");
+
+                if ( $log->save() ) {
+                    $result = true;
+                }
+            }
+
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
                 'result' => $result,
@@ -350,6 +366,22 @@ class PrReportController extends Controller
                 }
             }
 
+            if ($result) {
+                $log   = new TblLogs();
+
+                $log->encoder  = Yii::$app->user->identity->id;
+                $log->action   = 0;
+                $log->tbl_name = "pr_report";
+                $log->tbl_col  = "pr_id";
+                $log->tbl_id   = $model['pr_id'];
+                $log->details  = 'created new <i class="text-orange"><u>supplemental-purchase request</u></i> with pr number ##'.$model['pr_no'].'##.';
+                $log->log_date = date("Y-m-d H:i:s");
+
+                if ( $log->save() ) {
+                    $result = true;
+                }
+            }
+
             //return $this->redirect(['pr-report/view', 'id' => $model->pr_id]);
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
@@ -429,7 +461,22 @@ class PrReportController extends Controller
                 if($query->execute()) {
                     $result = true;    
                 }*/
-                $result = true; 
+
+                // $result = true;
+
+                $log   = new TblLogs();
+
+                $log->encoder  = Yii::$app->user->identity->id;
+                $log->action   = 2;
+                $log->tbl_name = "pr_report";
+                $log->tbl_col  = "pr_id";
+                $log->tbl_id   = $model['pr_id'];
+                $log->details  = 'removed <i class="text-orange"><u>purchase request</u></i> with pr number ##'.$model['pr_no'].'##.';
+                $log->log_date = date("Y-m-d H:i:s");
+
+                if ( $log->save() ) {
+                    $result = true;
+                }
             } 
 
             Yii::$app->response->format = Response::FORMAT_JSON;

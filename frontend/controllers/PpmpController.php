@@ -153,19 +153,21 @@ class PpmpController extends Controller
                 $model->status              = $ppmpData['status'];
 
                 if ( $model->save() ) {
-                    //$result = true;
-                    $log   = new TblLogs();
+                    $result = true;
+                }
+            }
 
-                    $log->encoder  = Yii::$app->user->identity->id;
-                    $log->action   = 0;
-                    $log->tbl_id   = $model['ppmp_id'];
-                    $log->tbl_name = "ppmp";
-                    $log->details  = "Create PPMP";
-                    $log->log_date = date("Y-m-d H:i:s");
+            if ($result) {
+                $log   = new TblLogs();
 
-                    if ( $log->save() ) {
-                        $result = true;
-                    }
+                $log->encoder  = Yii::$app->user->identity->id;
+                $log->action   = 0;
+                $log->tbl_name = "ppmp";
+                $log->details  = 'created a new <i class="text-orange"><u>PPMP</u></i> account';
+                $log->log_date = date("Y-m-d H:i:s");
+
+                if ( $log->save() ) {
+                    $result = true;
                 }
             }
 
@@ -195,7 +197,7 @@ class PpmpController extends Controller
             $log->action   = 0;
             $log->tbl_id   = $id;
             $log->tbl_name = "ppmp";
-            $log->details  = "Update PPMP";
+            $log->details  = 'updated a <i class="text-orange"><u>PPMP</u></i> account';
             $log->log_date = date("Y-m-d H:i:s");
 
             if ( $log->save() ) {
@@ -232,7 +234,7 @@ class PpmpController extends Controller
             $log->action   = 0;
             $log->tbl_id   = $id;
             $log->tbl_name = "ppmp";
-            $log->details  = "Delete PPMP";
+            $log->details  = "removed a PPMP account";
             $log->log_date = date("Y-m-d H:i:s");
 
             if ( $log->save() ) {

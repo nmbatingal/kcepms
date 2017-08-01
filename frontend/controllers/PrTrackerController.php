@@ -170,7 +170,7 @@ class PrTrackerController extends Controller
                 $log->tbl_name = 'pr_tracker';
                 $log->tbl_col  = 'pr_tracker_id';
                 $log->tbl_id   = $model['pr_tracker_id'];
-                $log->details  = 'created new tracker with tracking number ##' . $model['tracker_no'].'##.';
+                $log->details  = 'created new pr tracker with tracking number ##' . $model['tracker_no'].'##.';
                 $log->log_date = date("Y-m-d H:i:s");
 
                 if ( $log->save() ) {
@@ -254,7 +254,7 @@ class PrTrackerController extends Controller
                 $log->tbl_name = "pr_tracker";
                 $log->tbl_col  = "pr_tracker_id";
                 $log->tbl_id   = $id;
-                $log->details  = "Update Tracker";
+                $log->details  = 'updated pr tracker with tracking number ##' . $model['tracker_no'].'##.';
                 $log->log_date = date("Y-m-d H:i:s");
 
                 if ( $log->save() ) {
@@ -321,7 +321,7 @@ class PrTrackerController extends Controller
                     $log->tbl_name = "pr_tracker";
                     $log->tbl_col  = "pr_tracker_id";
                     $log->tbl_id   = $id;
-                    $log->details  = "Remove Tracker";
+                    $log->details  = 'removed pr tracker ##' . $model['tracker_no'].'##.';
                     $log->log_date = date("Y-m-d H:i:s");
 
                     if ( $log->save() ) {
@@ -373,7 +373,7 @@ class PrTrackerController extends Controller
                         $log->tbl_name = "pr_tracker";
                         $log->tbl_col  = "pr_tracker_id";
                         $log->tbl_id   = $id;
-                        $log->details  = "Restore Tracker";
+                        $log->details  = 'restored pr tracker ##' . $model['tracker_no'].'##.';
                         $log->log_date = date("Y-m-d H:i:s");
 
                         if ( $log->save() ) {
@@ -451,51 +451,5 @@ class PrTrackerController extends Controller
                     break;
             }
         }
-
-        /*if ( Yii::$app->request->isAjax && $form) {
-
-            foreach ($form as $model) {
-                $pr_type    = $form['pr_type'];
-                $tracker_id = $form['tracker_id'];
-            }
-
-            $tracker = $this->findModel($tracker_id);
-
-            switch ($pr_type) {
-                case 0:
-                    $html =  $this->render('_form-ppmp', [
-                        'pr_model' => $pr,
-                        'pr_type'  => $pr_type,
-                        'pr_items' => $pr_items,
-                        'tracker'  => $tracker,
-                    ]);
-
-                    Yii::$app->response->format = Response::FORMAT_JSON;
-                    return [
-                        'html'  => $html,
-                        'url'   => Url::toRoute(['create-items']),
-                        'title' => 'Create PR',
-                    ];
-
-                    break;
-                
-                case 1:
-                    $html = $this->render('_form-sppmp', [
-                        'pr_model' => $pr,
-                        'pr_type'  => $pr_type,
-                        'pr_sppmp' => $pr_sppmp,
-                        'tracker'  => $tracker,
-                    ]);
-
-                    Yii::$app->response->format = Response::FORMAT_JSON;
-                    return [
-                        'html'  => $html,
-                        'url'   => Url::toRoute(['create-items']),
-                        'title' => 'Create PR',
-                    ];
-                    
-                    break;
-            }
-        }*/
     }
 }
