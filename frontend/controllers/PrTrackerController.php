@@ -170,7 +170,7 @@ class PrTrackerController extends Controller
                 $log->tbl_name = 'pr_tracker';
                 $log->tbl_col  = 'pr_tracker_id';
                 $log->tbl_id   = $model['pr_tracker_id'];
-                $log->details  = 'created new pr tracker with tracking number ##' . $model['tracker_no'].'##.';
+                $log->details  = 'created new <i class="text-orange"><u>pr tracker</u></i> with tracking number ##' . $model['tracker_no'].'##.';
                 $log->log_date = date("Y-m-d H:i:s");
 
                 if ( $log->save() ) {
@@ -254,7 +254,7 @@ class PrTrackerController extends Controller
                 $log->tbl_name = "pr_tracker";
                 $log->tbl_col  = "pr_tracker_id";
                 $log->tbl_id   = $id;
-                $log->details  = 'updated pr tracker with tracking number ##' . $model['tracker_no'].'##.';
+                $log->details  = 'updated <i class="text-orange"><u>pr tracker</u></i> with tracking number ##' . $model['tracker_no'].'##.';
                 $log->log_date = date("Y-m-d H:i:s");
 
                 if ( $log->save() ) {
@@ -321,7 +321,7 @@ class PrTrackerController extends Controller
                     $log->tbl_name = "pr_tracker";
                     $log->tbl_col  = "pr_tracker_id";
                     $log->tbl_id   = $id;
-                    $log->details  = 'removed pr tracker ##' . $model['tracker_no'].'##.';
+                    $log->details  = 'removed <i class="text-orange"><u>pr tracker</u></i> ##' . $model['tracker_no'].'##.';
                     $log->log_date = date("Y-m-d H:i:s");
 
                     if ( $log->save() ) {
@@ -373,7 +373,7 @@ class PrTrackerController extends Controller
                         $log->tbl_name = "pr_tracker";
                         $log->tbl_col  = "pr_tracker_id";
                         $log->tbl_id   = $id;
-                        $log->details  = 'restored pr tracker ##' . $model['tracker_no'].'##.';
+                        $log->details  = 'restored <i class="text-orange"><u>pr tracker</u></i> ##' . $model['tracker_no'].'##.';
                         $log->log_date = date("Y-m-d H:i:s");
 
                         if ( $log->save() ) {

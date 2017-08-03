@@ -10,18 +10,18 @@ $this->title = 'Sign In';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+    'inputTemplate' => "{input}<span class='fa fa-user form-control-feedback'></span>"
 ];
 
 $fieldOptions2 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
+    'inputTemplate' => "{input}<span class='fa fa-lock form-control-feedback'></span>"
 ];
 ?>
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>Admin</b>LTE</a>
+        <a href="#"><b>KC</b>ePMS</a>
     </div>
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
@@ -43,7 +43,7 @@ $fieldOptions2 = [
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
             </div>
             <div class="col-xs-4">
-                <?= Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Sign in', ['class' => 'btn btn-success btn-block btn-flat', 'name' => 'login-button']) ?>
             </div>
         </div>
 
@@ -51,9 +51,10 @@ $fieldOptions2 = [
         <?php ActiveForm::end(); ?>
 
         <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <?= Html::button('Sign in using Admin account', ['class' => 'btn btn-block btn-flat btn-primary', 'onclick' => 'changeUrl(this)' ]) ?>
+            <hr>
             <?= Html::a('Login as Guest', ['site/index'], ['class' => 'btn btn-block btn-flat btn-primary']) ?>
+            <?= Html::button('Sign in using Admin account', ['class' => 'btn btn-block btn-flat btn-default', 'onclick' => 'changeUrl(this)' ]) ?>
+            <hr>
         </div>
 
         <?= Html::a('I forgot my password', ['site/request-password-reset']) ?><br>

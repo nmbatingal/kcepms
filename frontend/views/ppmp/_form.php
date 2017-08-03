@@ -1,7 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+
+use common\models\PpmpCategory;
+use common\models\PpmpMode;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Ppmp */
@@ -12,25 +17,43 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ppmp_unit_id')->textInput() ?>
+    <div class="row">
+        <div class="col-md-7">
+            <?= $form->field($model, 'ppmp_category_id')->dropDownList(
+                ArrayHelper::map(PpmpCategory::find()->orderBy('description ASC')->all(), 'ppmp_category_id', 'description'), 
+                [
+                    'id'        => 'ppmp_category_id',
+                    'prompt'    => 'Select category ...',
+                ])->label('Category') ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'ppmp_mode_id')->dropDownList(
+                ArrayHelper::map(PpmpMode::find()->orderBy('mode ASC')->all(), 'ppmp_mode_id', 'description'), 
+                [
+                    'id'        => 'ppmp_mode_id',
+                    'prompt'    => 'Select mode of procurement ...',
+                ])->label('Mode of Procurement') ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'year')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'ppmp_category_id')->textInput() ?>
+    <div class="row">
+        <div class="col-md-2">
+            <?= $form->field($model, 'size_quantity')->input('number', ['min' => 0, 'step' => 1])->label('Quantity/Size') ?>
+        </div>
 
-    <?= $form->field($model, 'size_quantity')->textInput() ?>
+        <div class="col-md-4">
+            <?= $form->field($model, 'budget')->textInput() ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'budget')->textInput() ?>
-
-    <?= $form->field($model, 'deduction')->textInput() ?>
-
-    <?= $form->field($model, 'ppmp_mode_id')->textInput() ?>
-
-    <?= $form->field($model, 'year')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'date_created')->textInput() ?>
-
-    <?= $form->field($model, 'encoder')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'date_created')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'ppmp_unit_id')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'deduction')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'encoder')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'status')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

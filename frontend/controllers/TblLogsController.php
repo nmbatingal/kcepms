@@ -58,7 +58,7 @@ class TblLogsController extends Controller
             return [
                 'html' => $html,
                 'url'  => Url::toRoute(['index']),
-                'title' => 'Logs',
+                'title' => 'Activity Logs',
             ];
 
         } else {

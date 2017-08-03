@@ -10,7 +10,7 @@ use common\models\User;
 /* @var $searchModel frontend\models\TblLogsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tbl Logs';
+$this->title = 'Activity Logs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

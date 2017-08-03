@@ -189,7 +189,19 @@ class PpmpController extends Controller
 
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ( Yii::$app->request->isAjax ) {
+
+            $html = $this->renderAjax('update', [
+                'model' => $model,
+            ]);
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'html' => $html,
+                'title' => 'Update',
+                'url'  => Url::toRoute(['update', 'id' => $id]),
+            ];
+        } elseif ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $log   = new TblLogs();
 
@@ -197,12 +209,13 @@ class PpmpController extends Controller
             $log->action   = 0;
             $log->tbl_id   = $id;
             $log->tbl_name = "ppmp";
-            $log->details  = 'updated a <i class="text-orange"><u>PPMP</u></i> account';
+            $log->details  = 'updated a <i class="text-orange"><u>PPMP</u></i> account ##'.$model->ppmpCategory['description'].'##.';
             $log->log_date = date("Y-m-d H:i:s");
 
             if ( $log->save() ) {
                 $result = true;
-                return $this->redirect(['view', 'id' => $model->ppmp_id]);
+
+                return $this->redirect(['index']);
             }
 
             // return $this->redirect(['view', 'id' => $model->ppmp_id]);

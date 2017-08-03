@@ -224,7 +224,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a( '<i class="glyphicon glyphicon-pencil"></i>',
                                 Url::toRoute(['update', 'id'=>$model['ppmp_id']]),
                                 [
-                                    'class'=> 'btn btn-xs btn-primary',
+                                    'class'=> 'btn btn-xs btn-primary btn-link-page',
                                 ]
                             );
                     },
