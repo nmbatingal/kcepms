@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
+use dmstr\widgets\Alert;
 
 
 /* @var $this yii\web\View */
@@ -22,7 +23,6 @@ $fieldOptions2 = [
 ?>
 
 <?php
-
     Modal::begin([
         'id' => 'modal-reset-password',
         'size' => 'modal-md',
@@ -46,7 +46,6 @@ $fieldOptions2 = [
         </div>";
 
     Modal::end();
-
 ?>
 
 <div class="login-box">
@@ -54,8 +53,9 @@ $fieldOptions2 = [
     <!-- <div class="login-logo">
         <a href="#"><b>KC</b>ePMS</a>
     </div> -->
+    <?= Alert::widget() ?>
     
-    <div class="login-box-body">
+    <div class="login-box-body bg-shadow">
         <p class="login-box-msg">Sign in to start your session</p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => true]); ?>
@@ -84,15 +84,15 @@ $fieldOptions2 = [
 
         <div class="social-auth-links text-center">
             <hr>
-            <?= Html::a('Login as Guest', ['site/index'], ['class' => 'btn btn-block btn-flat btn-success']) ?>
+            <?= Html::a('Continue as Guest', ['site/index'], ['class' => 'btn btn-block btn-flat btn-success']) ?>
             <?= Html::button('Sign in using Admin account', ['class' => 'btn btn-block btn-flat btn-default', 'onclick' => 'changeUrl(this)' ]) ?>
         </div>
     </div>
     
     <br>
-    <?= Html::a('I forgot my password', ['site/request-password-reset'], ['id' => 'lnk-reset-password']) ?>
+    <?= Html::a('I forgot my password', ['site/request-password-reset'], ['id' => 'lnk-reset-password', 'class' => '']) ?>
     <br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <?= Html::a('Register a new account', ['site/signup'], ['id' => '', 'class' => '']) ?>
 
 </div>
 

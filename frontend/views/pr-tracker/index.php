@@ -84,8 +84,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tracker_seq',
             //'tracker_no',
             [
+                'attribute' => 'tracker_no',
                 'label' => 'Tracking Number',
-                'mergeHeader' => true,
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(PrTracker::find()->all(), 'tracker_no', 'tracker_no'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Search tracker ...', 'style' => 'display: block',],
                 'value'=> function($model) {
 
                     return Html::a( '<b>'. $model->tracker_no .'</b>',
@@ -133,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'Search unit ...', 'style' => 'display: block',],
+                'filterInputOptions'=>['placeholder'=>'Search proponent ...', 'style' => 'display: block',],
                 'value' => 'unit_responsible',
                 'headerOptions'=>[
                     'class'=>'kv-align-center kv-align-middle',

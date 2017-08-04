@@ -1,3 +1,39 @@
+/*** BUTTON SUBMIT RESET PASSWORD FORM ***/
+$(document).on('beforeSubmit', '#request-password-reset-form', function(event, jqXHR, settings) {    
+    event.preventDefault();
+    var form = $(this);
+    
+    $('div#modal-reset-password').append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+
+    $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: form.serialize(),
+        success: function(data) {
+
+            if (data.result) {
+                swal({
+                    title: 'Done!',
+                    text:  'A confirmation link has been sent to your email address.',
+                    type:  "success",
+                    showCancelButton: false,
+                    closeOnConfirm: true,
+                });
+                $('#modal-reset-password').modal('hide');
+            } else {
+                $('#modal-reset-password').modal('hide');
+                swal("Failed!", "Sorry, we are unable to reset password for the provided email address.", "error");
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){
+            $('#modal-reset-password').modal('hide');
+            swal("System Error!", "Please try again", "error");
+        }
+    });
+
+    return false;
+});
+
 /*** REFRESH SPINNER ***/
 function spinRefresh() {
     var $refresh = '<div style="text-align:center;padding-top: 25%;" class="overlay">' +

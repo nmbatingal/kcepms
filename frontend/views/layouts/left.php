@@ -1,6 +1,6 @@
 <style>
     .panel-inspinia {
-        background: url(img/4.png) no-repeat;
+        background: url(img/bg/4.png) no-repeat;
     }
     .sidebar-collapse div.user-panel {
         height: 50px;

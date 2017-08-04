@@ -32,14 +32,43 @@ dmstr\web\AdminLteAsset::register($this);
         color: #fff;
         background-color: #1ab394 !important;
     }
+
+    .login-page {
+        /*background: url("img/bg/img_1.jpg") no-repeat center center fixed; */
+        background-color: #fff;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .bg-shadow {
+        box-shadow: 1px 2px 2px #888888;
+    }
+
+    .custom-footer {
+        background: #fff;
+        padding: 15px;
+        color: #444;
+        border-top: 1px solid #d2d6de;
+    }
 </style>
 
 <body class="login-page">
 
 <?php $this->beginBody() ?>
 	
-
+    <?= $this->render('header-login.php') ?>
     <?= $content ?>
+
+    <footer class="custom-footer">
+        <div class="pull-right hidden-xs">
+            <b>KC-ePMS</b> v2.0
+        </div>
+
+        <strong>Copyright &copy; <?= date('Y') ?> <a href="http://apps.caraga.dswd.gov.ph">DSWD-KC CARAGA</a>.</strong> All rights reserved.
+
+    </footer>
 
 <?php $this->endBody() ?>
 </body>

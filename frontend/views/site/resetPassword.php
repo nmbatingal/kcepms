@@ -7,25 +7,35 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Reset password';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-reset-password">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please choose your new password:</p>
+<?php
+    $fieldOptions2 = [
+        'options' => ['class' => 'form-group has-feedback'],
+        'inputTemplate' => "{input}<span class='fa fa-lock form-control-feedback'></span>"
+    ];
+?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+<div class="login-box">
 
-                <?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
+    <!-- <div class="login-logo">
+        <a href="#"><b>KC</b>ePMS</a>
+    </div> -->
+    
+    <div class="login-box-body">
+        <p class="login-box-msg">Please choose your new password</p>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-                </div>
+        <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-            <?php ActiveForm::end(); ?>
+            <?= $form->field($model, 'password', $fieldOptions2)->passwordInput(['autofocus' => true])->label(false) ?>
+
+        <div class="row">
+            <div class="col-xs-4 pull-right">
+                <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block btn-flat']) ?>
+            </div>
         </div>
+
+        <?php ActiveForm::end(); ?>
     </div>
+
 </div>
