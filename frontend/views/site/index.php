@@ -20,5 +20,4 @@ $this->title = 'Dashboard';
 
 <div class="site-index content-body">
 	Dashboard
-	<?= Yii::$app->getRequest()->serverName.Yii::getAlias('@web') ?>
 </div>

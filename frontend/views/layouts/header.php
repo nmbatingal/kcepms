@@ -63,15 +63,17 @@ use yii\helpers\Html;
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
-        <div class="search-bar">
-            <form action="javascript:void(0)" method="get">
-                <input type="text" name="search" placeholder="search for something..." class="input-search">
-            </form>
-        </div>
-        
+                
         <?php
 
             if(!Yii::$app->user->isGuest) {
+
+                echo '<div class="search-bar">
+                    <form action="javascript:void(0)" method="get">
+                        <input type="text" name="search" placeholder="search for something..." class="input-search">
+                    </form>
+                </div>';
+
                 echo '
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">

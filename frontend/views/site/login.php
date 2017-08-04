@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Modal;
+
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -19,10 +21,40 @@ $fieldOptions2 = [
 ];
 ?>
 
+<?php
+
+    Modal::begin([
+        'id' => 'modal-reset-password',
+        'size' => 'modal-md',
+        'header' => '<h4>Request Password Reset</h4>',
+        'headerOptions' => [
+            'class' => 'header-inspinia',
+        ],
+        'clientOptions' => [
+            'backdrop' => 'static', 
+            'keyboard' => FALSE,
+        ],
+        'options' => [
+            'tabindex' => false,
+        ],
+    ]);
+
+    echo "<div id='modal-content'>
+            <div style='text-align:center' class='overlay'>
+                <i class='fa fa-refresh fa-spin'></i>
+            </div>
+        </div>";
+
+    Modal::end();
+
+?>
+
 <div class="login-box">
-    <div class="login-logo">
+
+    <!-- <div class="login-logo">
         <a href="#"><b>KC</b>ePMS</a>
-    </div>
+    </div> -->
+    
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
@@ -52,15 +84,16 @@ $fieldOptions2 = [
 
         <div class="social-auth-links text-center">
             <hr>
-            <?= Html::a('Login as Guest', ['site/index'], ['class' => 'btn btn-block btn-flat btn-primary']) ?>
+            <?= Html::a('Login as Guest', ['site/index'], ['class' => 'btn btn-block btn-flat btn-success']) ?>
             <?= Html::button('Sign in using Admin account', ['class' => 'btn btn-block btn-flat btn-default', 'onclick' => 'changeUrl(this)' ]) ?>
-            <hr>
         </div>
-
-        <?= Html::a('I forgot my password', ['site/request-password-reset']) ?><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
-
     </div>
+    
+    <br>
+    <?= Html::a('I forgot my password', ['site/request-password-reset'], ['id' => 'lnk-reset-password']) ?>
+    <br>
+    <a href="register.html" class="text-center">Register a new membership</a>
+
 </div>
 
 <script>

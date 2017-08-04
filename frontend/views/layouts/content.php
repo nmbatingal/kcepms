@@ -48,6 +48,11 @@ use dmstr\widgets\Alert;
         padding-bottom: 5px; !important;
     }
 
+    .btn-success {
+        color: #fff;
+        background-color: #1ab394 !important;
+    }
+
     .modal-wide {
         width: 1250px;
     }

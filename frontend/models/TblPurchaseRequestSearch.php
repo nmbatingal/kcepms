@@ -72,7 +72,7 @@ class TblPurchaseRequestSearch extends TblPurchaseRequest
             'date_encoded' => $this->date_encoded,
         ]);
 
-        $query->andFilterWhere(['like', 'pr_no', $this->pr_no])
+        $query->andFilterWhere(['like', 'tbl_purchase_request.pr_no', $this->pr_no])
             ->andFilterWhere(['like', 'doc_type_id', $this->doc_type_id])
             ->andFilterWhere(['like', 'div_id', $this->div_id])
             ->andFilterWhere(['like', 'unit_id', $this->unit_id])
