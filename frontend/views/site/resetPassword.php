@@ -22,7 +22,7 @@ use yii\bootstrap\ActiveForm;
         <a href="#"><b>KC</b>ePMS</a>
     </div> -->
     
-    <div class="login-box-body">
+    <div class="login-box-body bg-shadow">
         <p class="login-box-msg">Please choose your new password</p>
 
         <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>

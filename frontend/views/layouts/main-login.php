@@ -34,7 +34,6 @@ dmstr\web\AdminLteAsset::register($this);
     }
 
     .login-page {
-        /*background: url("img/bg/img_1.jpg") no-repeat center center fixed; */
         background-color: #fff;
         -webkit-background-size: cover;
         -moz-background-size: cover;

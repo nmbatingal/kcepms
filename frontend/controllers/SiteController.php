@@ -151,7 +151,7 @@ class SiteController extends Controller
 
             if ($model->save()) {
 
-                //return $this->goHome();
+                return $this->goHome();
             }
         }
 
@@ -204,12 +204,17 @@ class SiteController extends Controller
             if ($user = $model->signup()) {
 
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                    
+                    //return $this->goHome();
+                    //Yii::$app->session->setFlash('success', 'Confirm user credentials to the system administrator first before using your account.');
+                    Yii::$app->session->setFlash('success', 'New password saved.');
+
+                    return $this->redirect(['site/login']);
                 }
 
             }
         }
-        
+
         $this->layout = 'main-login';
         return $this->render('signup', [
             'model' => $model,
@@ -267,10 +272,11 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+
             Yii::$app->session->setFlash('success', 'New password saved.');
 
             //return $this->goHome();
-            return $this->redirect(['login']);
+            return $this->redirect(['site/login']);
             //Yii::$app->user->login($model);
         }
 

@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
-use dmstr\widgets\Alert;
+use common\widgets\Alert;
 
 
 /* @var $this yii\web\View */
@@ -53,7 +53,13 @@ $fieldOptions2 = [
     <!-- <div class="login-logo">
         <a href="#"><b>KC</b>ePMS</a>
     </div> -->
-    <?= Alert::widget() ?>
+
+    <?php
+        foreach (Yii::$app->session->getAllFlashes() as $message) {
+
+            echo Alert::widget();
+        }
+    ?>
     
     <div class="login-box-body bg-shadow">
         <p class="login-box-msg">Sign in to start your session</p>
