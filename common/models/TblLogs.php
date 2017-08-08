@@ -54,4 +54,12 @@ class TblLogs extends \yii\db\ActiveRecord
             'log_date' => 'Log Date',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEncoder()
+    {
+        return $this->hasOne(User::className(), ['id' => 'encoder']);
+    }
 }

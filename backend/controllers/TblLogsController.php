@@ -1,10 +1,10 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
 use common\models\TblLogs;
-use frontend\models\TblLogsSearch;
+use backend\models\TblLogsSearch;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
@@ -41,17 +41,14 @@ class TblLogsController extends Controller
             return $this->goHome();
         }
 
-        //$searchModel = new TblLogsSearch();
-        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $model = TblLogs::find()->orderBy('log_date DESC')->all();
+        $searchModel = new TblLogsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         if ( Yii::$app->request->isAjax ) {
 
             $html = $this->renderAjax('index', [
-                //'searchModel' => $searchModel,
-                //'dataProvider' => $dataProvider,
-                'model' => $model,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
             ]);
 
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -63,9 +60,8 @@ class TblLogsController extends Controller
 
         } else {
             return $this->render('index', [
-                //'searchModel' => $searchModel,
-                //'dataProvider' => $dataProvider,
-                'model' => $model,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
             ]);
         }
     }

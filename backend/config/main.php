@@ -8,10 +8,18 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name' => 'KC-ePMS',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+        ],
+        'datecontrol' =>  [
+            'class' => '\kartik\datecontrol\Module',
+        ]
+    ],
     'components' => [
         'request' => [
             //'csrfParam' => '_csrf-backend',
@@ -30,6 +38,7 @@ return [
         'session' => [
             // this is the name of the session cookie used for login on the backend
             //'name' => 'advanced-backend',
+            'timeout' => 60,
             'name' => 'PHPBACKSESSID',
             'savePath' => sys_get_temp_dir(),
         ],

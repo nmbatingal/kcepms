@@ -137,8 +137,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Date',
                 'value' => function($model){
                     $date = date("M-d-Y", strtotime($model['date_encoded']));
-                    $time = date("H:i:s", strtotime($model['date_encoded']));
-                    return $date . '<br><i class="text-red">'.$time.'</i>';
+                    $time = date("H:i a", strtotime($model['date_encoded']));
+                    return $date . ' <i class="text-red">'.$time.'</i>';
                 },
                 'format' => 'raw',
                 'headerOptions'=>[
@@ -173,8 +173,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'id' => 'grid-purchase-request',
-        'dataProvider'=>$dataProvider,
-        'filterModel'=>$searchModel,
+        'dataProvider'=> $dataProvider,
+        'filterModel'=> $searchModel,
         'columns' => $column,
         'tableOptions'=>[
             'id'=>'table-grid-ppmp',

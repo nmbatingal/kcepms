@@ -1,20 +1,18 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
-use common\models\TblLogs;
-use frontend\models\TblLogsSearch;
-use yii\helpers\Url;
+use common\models\PrReport;
+use backend\models\PrReportSearch;
 use yii\web\Controller;
-use yii\web\Response;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TblLogsController implements the CRUD actions for TblLogs model.
+ * PrReportController implements the CRUD actions for PrReport model.
  */
-class TblLogsController extends Controller
+class PrReportController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,46 +30,22 @@ class TblLogsController extends Controller
     }
 
     /**
-     * Lists all TblLogs models.
+     * Lists all PrReport models.
      * @return mixed
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+        $searchModel = new PrReportSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        //$searchModel = new TblLogsSearch();
-        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $model = TblLogs::find()->orderBy('log_date DESC')->all();
-
-        if ( Yii::$app->request->isAjax ) {
-
-            $html = $this->renderAjax('index', [
-                //'searchModel' => $searchModel,
-                //'dataProvider' => $dataProvider,
-                'model' => $model,
-            ]);
-
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return [
-                'html' => $html,
-                'url'  => Url::toRoute(['index']),
-                'title' => 'Activity Logs',
-            ];
-
-        } else {
-            return $this->render('index', [
-                //'searchModel' => $searchModel,
-                //'dataProvider' => $dataProvider,
-                'model' => $model,
-            ]);
-        }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
-     * Displays a single TblLogs model.
+     * Displays a single PrReport model.
      * @param integer $id
      * @return mixed
      */
@@ -83,16 +57,16 @@ class TblLogsController extends Controller
     }
 
     /**
-     * Creates a new TblLogs model.
+     * Creates a new PrReport model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new TblLogs();
+        $model = new PrReport();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->log_id]);
+            return $this->redirect(['view', 'id' => $model->pr_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -101,7 +75,7 @@ class TblLogsController extends Controller
     }
 
     /**
-     * Updates an existing TblLogs model.
+     * Updates an existing PrReport model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -111,7 +85,7 @@ class TblLogsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->log_id]);
+            return $this->redirect(['view', 'id' => $model->pr_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -120,7 +94,7 @@ class TblLogsController extends Controller
     }
 
     /**
-     * Deletes an existing TblLogs model.
+     * Deletes an existing PrReport model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -133,15 +107,15 @@ class TblLogsController extends Controller
     }
 
     /**
-     * Finds the TblLogs model based on its primary key value.
+     * Finds the PrReport model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return TblLogs the loaded model
+     * @return PrReport the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TblLogs::findOne($id)) !== null) {
+        if (($model = PrReport::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
