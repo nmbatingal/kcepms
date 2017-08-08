@@ -37,6 +37,7 @@ dmstr\web\AdminLteAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'PR Tracker', 'url' => ['/pr-tracker/index']],
         ['label' => 'Log', 'url' => ['/tbl-logs/index']],
     ];
     if (Yii::$app->user->isGuest) {

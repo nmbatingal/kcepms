@@ -28,7 +28,10 @@ return [
         ],
         'user' => [
             'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
+            'authTimeout' => 60,
+            'enableSession' => true,
+            'autoRenewCookie' => true,
             'identityCookie' => [
                 //'name' => '_identity-frontend', 
                 'name' => 'PHPFRONTSESSID', 
