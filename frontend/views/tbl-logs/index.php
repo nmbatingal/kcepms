@@ -12,6 +12,42 @@ use common\models\User;
 
 $this->title = 'Activity Logs';
 $this->params['breadcrumbs'][] = $this->title;
+
+function dateTimeDiff($dateTimeIntervalObj){
+    $diff_str = '';
+
+    if($dateTimeIntervalObj->d > 0){
+        if($dateTimeIntervalObj->d > 1){
+            $diff_str .= $dateTimeIntervalObj->d . ' days ';
+        } else{
+            $diff_str .= $dateTimeIntervalObj->d . ' day ';
+        }
+    }
+    elseif($dateTimeIntervalObj->h > 0){
+        if($dateTimeIntervalObj->h > 1){
+            $diff_str .= $dateTimeIntervalObj->h . ' hours ';
+        } else{
+            $diff_str .= $dateTimeIntervalObj->h . ' hour ';
+        }
+    }
+    elseif($dateTimeIntervalObj->i > 0){
+        if($dateTimeIntervalObj->i > 1){
+            $diff_str .= $dateTimeIntervalObj->i . ' minutes ';
+        } else{
+            $diff_str .= $dateTimeIntervalObj->i . ' minute ';
+        }
+    }
+    elseif($dateTimeIntervalObj->s > 0){
+        if($dateTimeIntervalObj->s > 1){
+            $diff_str .= $dateTimeIntervalObj->s . ' seconds ';
+        } else{
+            $diff_str .= $dateTimeIntervalObj->s . ' second ';
+        }
+    }
+
+    $diff_str .= ' ago';
+    return $diff_str;
+}
 ?>
 
 <style>
@@ -32,7 +68,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php
             $date = date("d F Y");
+            $dateNow = new DateTime();
+
             foreach ($model as $i => $log) {
+                $dateLog    = new DateTime($log['log_date']);
+                $dateDiff   = $dateNow->diff($dateLog);
+
                 $temp_date  = date("d F Y", strtotime($log['log_date']));
                 $controller = $log['tbl_name'];
                 $action_id  = $log['action'];
@@ -71,29 +112,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     echo '<li class="time-label">
                             <span class="bg-blue">'.
-                                $date.    
+                                $date . 
                             '</span>
                         </li>';
                 }
-                    if ( count($split) > 1 ) {
-                        echo '<li>
-                                <i class="'.$class.'"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> '.date("F d, Y H:i a", strtotime($log['log_date'])).'</span>
-            
-                                    <h3 class="timeline-header"><a href="#">@'.User::findIdentity($log['encoder'])->username.'</a> '.$split[0].$no.$split[2].'</h3>
-                                </div>
-                            </li>';
-                    } else {
-                        echo '<li>
-                                <i class="'.$class.'"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> '.date("F d, Y H:i a", strtotime($log['log_date'])).'</span>
-            
-                                    <h3 class="timeline-header"><a href="#">@'.User::findIdentity($log['encoder'])->username.'</a> '.$log['details'].'</h3>
-                                </div>
-                            </li>';
-                    }
+
+                if ( count($split) > 1 ) {
+                    echo '<li>
+                            <i class="'.$class.'"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> ' . dateTimeDiff($dateDiff) . '</i></span>
+        
+                                <h3 class="timeline-header"><a href="#">@'.User::findIdentity($log['encoder'])->username.'</a> '.$split[0].$no.$split[2].'</h3>
+                            </div>
+                        </li>';
+                } else {
+                    // date("F d, Y H:i a", strtotime($log['log_date']))
+                    echo '<li>
+                            <i class="'.$class.'"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> ' . dateTimeDiff($dateDiff) . '</span>
+                                <h3 class="timeline-header"><a href="#">@'.User::findIdentity($log['encoder'])->username.'</a> '.$log['details'].'</h3>
+                            </div>
+                        </li>';
+                }
             }
         ?>
         <li>
