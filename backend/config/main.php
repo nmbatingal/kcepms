@@ -27,7 +27,8 @@ return [
             'cookieValidationKey' => '0275162626',
         ],
         'user' => [
-            'identityClass' => 'common\models\Admin',
+            //'identityClass' => 'common\models\Admin',
+            'identityClass' => 'common\models\User',
             'enableAutoLogin' => false,
             //'authTimeout' => 300,
             'enableSession' => true,
