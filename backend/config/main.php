@@ -29,7 +29,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\Admin',
             'enableAutoLogin' => false,
-            'authTimeout' => 60,
+            //'authTimeout' => 300,
             'enableSession' => true,
             'autoRenewCookie' => true,
             'identityCookie' => [
@@ -41,7 +41,7 @@ return [
         'session' => [
             // this is the name of the session cookie used for login on the backend
             //'name' => 'advanced-backend',
-            'timeout' => 60,
+            'timeout' => 300,
             'name' => 'PHPBACKSESSID',
             'savePath' => sys_get_temp_dir(),
         ],

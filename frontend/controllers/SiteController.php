@@ -207,7 +207,7 @@ class SiteController extends Controller
                     
                     //return $this->goHome();
                     //Yii::$app->session->setFlash('success', 'Confirm user credentials to the system administrator first before using your account.');
-                    Yii::$app->session->setFlash('success', 'New password saved.');
+                    Yii::$app->session->setFlash('warning', 'Confirm user credentials to the system administrator first before using your account.');
 
                     return $this->redirect(['site/login']);
                 }

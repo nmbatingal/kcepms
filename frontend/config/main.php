@@ -29,7 +29,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => false,
-            'authTimeout' => 60,
+            'authTimeout' => 300,
             'enableSession' => true,
             'autoRenewCookie' => true,
             'identityCookie' => [
@@ -41,7 +41,7 @@ return [
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             //'name' => 'advanced-frontend',
-            'timeout' => 60,
+            'timeout' => 300,
             'name' => 'PHPFRONTSESSID',
             'savePath' => sys_get_temp_dir(),
         ],
@@ -60,9 +60,9 @@ return [
         'formatter' => [
             'class' => 'yii\i18n\Formatter',
             'nullDisplay' => '',
-            'dateFormat' => 'yyyy-M-d',
-            'datetimeFormat' => 'd-M-Y H:i:s',
-            'timeFormat' => 'H:i:s',
+            'dateFormat' => date('Y-m-d'),
+            'datetimeFormat' => date('Y-m-d H:i:s'),
+            'timeFormat' => date('H:i:s'),
             'thousandSeparator' => ',',
             'decimalSeparator' => '.',
         ],

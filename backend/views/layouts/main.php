@@ -29,20 +29,23 @@ dmstr\web\AdminLteAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'KC-electronic Procurement Management System (backend)',
+        'brandLabel' => 'KC-electronic Procurement Management System (Admin)',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'PR Tracker', 'url' => ['/pr-tracker/index']],
-        ['label' => 'Log', 'url' => ['/tbl-logs/index']],
-    ];
+
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems = [
+            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Trackers', 'url' => ['/pr-tracker/index']],
+            ['label' => 'Users', 'url' => ['/user/index']],
+            ['label' => 'Logs', 'url' => ['/tbl-logs/index']],
+        ];
+
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

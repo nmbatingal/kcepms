@@ -40,8 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-        <?= $form->field($model, 'username')->hiddenInput(['id' => 'username'])->label(false) ?>
-
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'firstname')->textInput(['id' => 'fname', 'autofocus' => true, 'placeholder' => 'First name', 'class' => 'form-control input_username'])->label(false) ?>
@@ -52,23 +50,23 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <?= $form->field($model, 'position_abr', $cog)->textInput(['autofocus' => true, 'placeholder' => 'Position'])->label(false) ?>
-            </div>
-        </div>
+        <br>
 
         <div class="row">
             <div class="col-md-6">
+                <?= $form->field($model, 'position_abr', $cog)->textInput(['autofocus' => true, 'placeholder' => 'Position'])->label(false) ?>
                 <?= $form->field($model, 'email', $email)->textInput(['placeholder' => 'Email'])->label(false) ?>
             </div>
         </div>
 
+        <br>
+        
         <div class="row">
             <div class="col-md-6">
-                <?= $form->field($model, 'password', $password)->passwordInput(['placeholder' => 'Password'])->label(false) ?>
+                <?= $form->field($model, 'username')->textInput(['id' => 'username', 'readonly' => 'readonly', 'placeholder' => 'Username'])->label('Username') ?>
             </div>
             <div class="col-md-6">
+                <?= $form->field($model, 'password', $password)->passwordInput(['placeholder' => 'Password'])->label(false) ?>
                 <?= $form->field($model, 'password_repeat', $password)->passwordInput(['placeholder' => 'Repeat password'])->label(false) ?>
             </div>
         </div>
