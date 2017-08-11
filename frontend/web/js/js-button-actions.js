@@ -84,7 +84,7 @@ $(document).on('click', '.btn-left-menu', function(event, jqXHR, settings) {
             window.history.pushState({url: "" + data.url + ""}, data.title, data.url);
         },
         error: function(xhr, textStatus, errorThrown){
-            alert('request failed');
+            swal("Error!", "Please refresh the page to continue.", "error");
         }
     });
 });
@@ -121,7 +121,7 @@ $(document).on('click', '.btn-left-menu-child', function(event, jqXHR, settings)
             window.history.pushState({url: "" + data.url + ""}, data.title, data.url);
         },
         error: function(xhr, textStatus, errorThrown){
-            alert('request failed');
+            swal("Error!", "Please refresh the page to continue.", "error");
         }
     });
 });

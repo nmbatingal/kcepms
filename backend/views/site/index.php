@@ -4,7 +4,7 @@
 
 $this->title = 'KC-ePMS | Admin';
 ?>
-<div class="site-index">
+<div class="site-index content-body">
 
     <div class="jumbotron">
         <h1>Congratulations!</h1>

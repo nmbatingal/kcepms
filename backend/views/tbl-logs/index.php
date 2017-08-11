@@ -14,10 +14,8 @@ use common\models\User;
 $this->title = 'Logs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tbl-logs-index">
+<div class="tbl-logs-index content-body">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

@@ -28,7 +28,7 @@
         "kartik-v/yii2-widget-datetimepicker": "*",
         "kartik-v/yii2-detail-view": "@dev",
         "yii2mod/yii2-sweet-alert": "1.2",
-        "miloschuman/yii2-highcahrts-widget": "*"
+        "miloschuman/yii2-highcharts-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

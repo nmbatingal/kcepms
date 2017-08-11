@@ -9,7 +9,7 @@ use common\widgets\Alert;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = 'Login';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
@@ -62,7 +62,7 @@ $fieldOptions2 = [
     ?>
     
     <div class="login-box-body bg-shadow">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Login to start your session</p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => true]); ?>
 
@@ -81,7 +81,7 @@ $fieldOptions2 = [
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
             </div>
             <div class="col-xs-4">
-                <?= Html::submitButton('Sign in', ['class' => 'btn btn-success btn-block btn-flat', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Login', ['class' => 'btn btn-success btn-block btn-flat', 'name' => 'login-button']) ?>
             </div>
         </div>
 
@@ -91,7 +91,7 @@ $fieldOptions2 = [
         <div class="social-auth-links text-center">
             <hr>
             <?= Html::a('Continue as Guest', ['site/index'], ['class' => 'btn btn-block btn-flat btn-success']) ?>
-            <?= Html::button('Sign in using Admin account', ['class' => 'btn btn-block btn-flat btn-default', 'onclick' => 'changeUrl(this)' ]) ?>
+            <?= Html::button('Login as admin', ['class' => 'btn btn-block btn-flat btn-default', 'onclick' => 'changeUrl(this)' ]) ?>
         </div>
     </div>
     

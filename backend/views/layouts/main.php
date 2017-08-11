@@ -10,7 +10,6 @@ if (Yii::$app->controller->action->id === 'login') {
  * Do not use this code in your template. Remove it. 
  * Instead, use the code  $this->layout = '//main-login'; in your controller.
  */
-
     echo $this->render(
         'main-login',
         ['content' => $content]
@@ -19,7 +18,6 @@ if (Yii::$app->controller->action->id === 'login') {
 
     if (class_exists('backend\assets\AppAsset')) {
         backend\assets\AppAsset::register($this);
-        backend\assets\AdminLtePluginAsset::register($this);
     } else {
         app\assets\AppAsset::register($this);
     }
@@ -28,7 +26,6 @@ if (Yii::$app->controller->action->id === 'login') {
 
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
     ?>
-    
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
@@ -39,7 +36,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body id="body" class="fixed hold-transition skin-green-light sidebar-mini">
+    <body class="hold-transition skin-blue sidebar-mini">
     <?php $this->beginBody() ?>
     <div class="wrapper">
 

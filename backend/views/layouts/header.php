@@ -56,7 +56,7 @@ use yii\helpers\Html;
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini"><b>KC</b>P</span><span class="logo-lg"><b>KC</b> Procurement</span>', Yii::$app->homeUrl, ['class' => 'logo nav-inspinia']) ?>
+    <?= Html::a('<span class="logo-mini"><b>KC</b>P</span><span class="logo-lg"><b>KC</b> Proc-Admin</span>', Yii::$app->homeUrl, ['class' => 'logo nav-inspinia']) ?>
 
     <nav class="navbar navbar-static-top nav-inspinia" role="navigation">
 
@@ -67,12 +67,6 @@ use yii\helpers\Html;
         <?php
 
             if(!Yii::$app->user->isGuest) {
-
-                echo '<div class="search-bar">
-                    <form action="javascript:void(0)" method="get">
-                        <input type="text" name="search" placeholder="search for something..." class="input-search">
-                    </form>
-                </div>';
 
                 echo '
                     <div class="navbar-custom-menu">

@@ -30,6 +30,10 @@
         font-weight: 100;
     }
 
+    .bg-menu-gray {
+        background-color: #e6e6e6 !important;
+    }
+
 </style>
 
 <aside class="main-sidebar">
@@ -47,7 +51,7 @@
                     }
                 ?>
             </div>
-            <div class="info">
+            <div class="pull-left info">
                 <?php
 
                     $user = Yii::$app->user->identity;
@@ -82,7 +86,6 @@
                 'items' => [
                     //['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Dashboard', 'icon' => 'th-large', 'url' => ['site/index'], 'options' => ['class' => 'btn-left-menu']],
-                    ['label' => 'Items & Supplies', 'icon' => 'cubes', 'url' => ['lib-item/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     [
                         'label' => 'PPMP',
                         'icon'  => 'calendar-check-o',
@@ -93,8 +96,16 @@
                             ['label' => 'PPMP 2017', 'icon' => 'circle-o', 'url' => ['ppmp/index'], 'options' => ['class' => 'btn-left-menu-child']],
                         ],
                     ],
-                    ['label' => 'PR Tracker', 'icon' => 'list-ul', 'url' => ['pr-tracker/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+                    ['label' => 'PR Trackers', 'icon' => 'list-ul', 'url' => ['pr-tracker/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     ['label' => 'Purchase Requests', 'icon' => 'wpforms', 'url' => ['tbl-purchase-request/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+
+                    ['label' => 'Budget Assistant', 'options' => ['class' => 'header bg-menu-gray'], 'visible' => !Yii::$app->user->isGuest],
+                    
+                    ['label' => 'Earmark', 'icon' => 'download', 'url' => ['tbl-purchase-request/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+
+                    ['label' => 'Others', 'options' => ['class' => 'header bg-menu-gray'], 'visible' => !Yii::$app->user->isGuest],
+
+                    ['label' => 'Items & Supplies', 'icon' => 'cubes', 'url' => ['lib-item/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     ['label' => 'Activity Logs', 'icon' => 'file-text', 'url' => ['tbl-logs/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     //['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
