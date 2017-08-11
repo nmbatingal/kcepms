@@ -53,9 +53,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'=>'kv-align-center kv-align-middle',
                 ],
             ],
-
             // 'pr_tracker_id',
             // 'tracker_no',
+            // 'status',
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    switch ($model['status']) {
+                        case 0:
+                            return '<span class="label bg-red">removed</span>';
+                            break;
+                        case 1:
+                            return '';
+                            break;
+                    }
+                },
+                'format' => 'raw',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'width'=>'100px',
+            ],
             [
                 'attribute' => 'tracker_no',
                 'label' => 'Tracking Number',
@@ -141,7 +162,54 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'date_updated',
             // 'status',
 
-            ['class' => ActionColumn::classname() ],
+            [
+                'class' => ActionColumn::className(),
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'template'=>'{view}&nbsp;{update}&nbsp;{delete}&nbsp;{restore}',
+                'buttons' => [
+                    'view'=> function ($url, $model) {
+                        return Html::a( '<i class="fa fa-eye"></i>',
+                                Url::toRoute(['view', 'id'=>$model['pr_tracker_id']]),
+                                [
+                                    'class'=> 'btn btn-xs btn-warning',
+                                    'title' => 'view tracker',
+                                ]
+                            );
+                    },
+                    'update'=> function ($url, $model) {
+                        return Html::a( '<i class="fa fa-pencil"></i>',
+                                Url::toRoute(['update', 'id'=>$model['pr_tracker_id']]),
+                                [
+                                    'class'=> 'btn btn-xs btn-primary',
+                                    'title' => 'update tracker',
+                                ]
+                            );
+                    },
+                    'delete'=> function ($url, $model) {
+                        return Html::a( '<i class="fa fa-trash"></i>',
+                                Url::toRoute(['delete', 'id'=>$model['pr_tracker_id']]),
+                                [
+                                    'class'=> 'btn btn-xs btn-danger',
+                                    'title' => 'delete tracker',
+                                ]
+                            );
+                    },
+                    'restore'=> function ($url, $model) {
+                        return Html::a( '<i class="fa fa-history"></i>',
+                                Url::toRoute(['restore', 'id'=>$model['pr_tracker_id']]),
+                                [
+                                    'class'=> 'btn btn-xs btn-success',
+                                    'title' => 'restore tracker',
+                                ]
+                            );
+                    },
+                ],
+            ],
         ];
     ?>
 

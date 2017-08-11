@@ -1,8 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 use kartik\grid\GridView;
+use kartik\grid\ActionColumn;
+use kartik\grid\SerialColumn;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\UserSearch */
@@ -11,26 +16,80 @@ use kartik\grid\GridView;
 $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<section class="content-header page-heading white-bg">
+    <?php if (isset($this->blocks['content-header'])) { ?>
+        <h1><?= $this->blocks['content-header'] ?></h1>
+    <?php } else { ?>
+        <h1>
+            <?php
+            if ($this->title !== null) {
+                echo \yii\helpers\Html::encode($this->title);
+                echo '<small>Admin</small>';
+            } else {
+                echo \yii\helpers\Inflector::camel2words(
+                    \yii\helpers\Inflector::id2camel($this->context->module->id)
+                );
+                echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
+            } ?>
+        </h1>
+    <?php } ?>
+
+    <?= Breadcrumbs::widget(
+        [
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]
+    ) ?>
+</section>
+
 <div class="user-index content-body">
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php
+        $column = [
+            [
+                'class' => SerialColumn::className(),
+                'header' => false,
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+            ],
 
             // 'id',
             // 'username',
             [
                 'attribute' => 'username',
                 'label' => 'Username',
-                'value' => 'username',
+                'value' => function($model){
+                    return '<b>'.$model['username'].'</b>';
+                },
                 'format' => 'raw',
                 'headerOptions'=>[
                     'class'=>'kv-align-center kv-align-middle',
                 ],
                 'contentOptions' => [
                     'class'=>'kv-align-left kv-align-middle',
+                ],
+                'width' => '100px',
+            ],
+            [
+                'attribute' => 'user_level',
+                'label' => 'User Level',
+                'value' => function($model){
+                    switch ($model['user_level']) {
+                        case 0:
+                            return '<span>user</span>';
+                            break;
+                        case 1:
+                            return '<span class="text-red">admin</span>';
+                            break;
+                    }
+                },
+                'format' => 'raw',
+                'headerOptions'=>[
+                    'class'=>'kv-align-center kv-align-middle',
+                ],
+                'contentOptions' => [
+                    'class'=>'kv-align-center kv-align-middle',
                 ],
                 'width' => '100px',
             ],
@@ -95,28 +154,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'position_abr',
             // 'user_level',
             [
-                'attribute' => 'user_level',
-                'label' => 'User Level',
-                'value' => function($model){
-                    switch ($model['user_level']) {
-                        case 0:
-                            return Html::button('user', ['class' => 'btn btn-xs btn-block btn-default']);
-                            break;
-                        case 1:
-                            return Html::button('admin', ['class' => 'btn btn-xs btn-block btn-default']);
-                            break;
-                    }
-                },
-                'format' => 'raw',
-                'headerOptions'=>[
-                    'class'=>'kv-align-center kv-align-middle',
-                ],
-                'contentOptions' => [
-                    'class'=>'kv-align-center kv-align-middle',
-                ],
-                'width' => '100px',
-            ],
-            [
                 'attribute' => 'status',
                 'label' => 'Status',
                 'value' => function($model){
@@ -140,6 +177,40 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             //['class' => 'yii\grid\ActionColumn'],
+        ]; 
+    ?>
+
+    <?= GridView::widget([
+        'id' => 'grid-ppmp',
+        'dataProvider'=>$dataProvider,
+        'filterModel'=>$searchModel,
+        'columns' => $column,
+        'tableOptions'=>[
+            'id'=>'table-grid-ppmp',
         ],
+        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+        'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+        'rowOptions' => [
+            'height' => '50px',
+        ],
+        'toolbar'=> false,
+        'pjax'=> true,
+        //'showPageSummary'=>true,
+        'bordered'=>true,
+        'striped'=>true,
+        'condensed'=>true,
+        'responsive'=>true,
+        'hover'=>true,
+        'panel'=> [
+            'heading'=>'&nbsp;',
+            'headingOptions' => [
+                'class' => 'box-header box-solid header-inspinia no-border',
+            ],
+            'before' => false,
+            'after' => false,
+            'footer'=> false,
+        ],
+        'resizableColumns'=>false,
+        'persistResize'=>true,
     ]); ?>
 </div>
