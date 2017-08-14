@@ -401,7 +401,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <tr>
                             <td class="col-total" colspan="18">Total</td>
                             <td>
-                                <?= Html::input('number', 'final_total', '0.00', ['class' => 'form-control final-total']) ?>
+                                <?= Html::input('number', 'final_total', '0.00', ['class' => 'form-control final-total', 'min' => 0, 'step' => '0.01']) ?>
                             </td>
                             <td></td>
                         </tr>

@@ -90,6 +90,7 @@ use yii\helpers\ArrayHelper;
     @page {
         size: A4;
         margin: 10mm 8mm;
+
     }
 
     @media print {
@@ -101,6 +102,8 @@ use yii\helpers\ArrayHelper;
         .no-print {
             display: none;
         }
+
+        tfoot { display:table-footer-group !important; }
     }
 
     input[name=rb_name],
@@ -168,31 +171,31 @@ use yii\helpers\ArrayHelper;
                         <th class="pr-col-6">Total Cost</th>
                     </tr>
                 </thead>
+
+
                 <tbody>
                     <?php
 
-                        $pr_count = 0;
+                        $pr_count = 1;
                         $label    = '';
 
                         foreach ($pr_items as $i => $item) {
                             $id = $i+1;
 
-                            if( !empty($item['item_description']) )
-                            {
-                                if ( $label != $item['group_label'] ) {
+                            
+                            if ( $label != $item['group_label'] ) {
 
-                                    $label = $item['group_label'];
+                                $label = $item['group_label'];
 
-                                    echo 
-                                    "<tr class='td-item'>
-                                        <td></td>
-                                        <td></td>
-                                        <td class='pr-col-item-center'>". $item['group_label'] ."</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>";
-                                }
+                                echo 
+                                "<tr class='td-item'>
+                                    <td></td>
+                                    <td></td>
+                                    <td class='pr-col-item-center'>". $item['group_label'] ."</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>";
 
                                 $pr_count += 1;
                             }
@@ -212,6 +215,10 @@ use yii\helpers\ArrayHelper;
                             </tr>";
 
                             $pr_count += 1;
+
+                            //try
+                            $item_lines = intval(strlen($item['item_description']) / 75);
+                            $pr_count += $item_lines;
                         }
 
                         echo 
@@ -224,9 +231,57 @@ use yii\helpers\ArrayHelper;
                             <td></td>
                         </tr>';
 
-                        $blanktd = 30 - $pr_count;
+                        //echo $pr_count;
+                        //$blanktd = 76 - $pr_count;
+
+                        // ============================================================
+                        /*
+                        $blanktd = 0;
+
+                        if ( $pr_count > 35 ) {
+                            
+                            if ( $pr_count < 42 ) {
+                                $blanktd = (42 - $pr_count) + 35;
+
+                            } elseif ( $pr_count >= 42 ) {
+                                $pr_count -= 42;
+                                $blanktd = 35 - $pr_count;
+                            }
+                        }
+                        */
+                        // ============================================================
+
+                        //************************************************************
+                        $blanktd = 35;
+                        if($pr_count > 35){
+                            $full_page_count = intval($pr_count / 42);
+                            if($full_page_count > 0){
+                                $rem = intval($pr_count % 42);
+                                $blanktd -= $rem % $blanktd;
+                            } else{
+                                $blanktd += 42 - $pr_count;
+                            }
+                        } else{
+                            $blanktd -= $pr_count;
+                        }
+                        //************************************************************
 
                         while ( $blanktd > 0)
+                        {
+                            echo 
+                            '<tr class="td-item blank">
+                                <td>&nbsp;</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>';
+
+                            $blanktd--;
+                        }
+
+                        /*while ( $blanktd > 0)
                         {
                             echo 
                             '<tr class="td-item">
@@ -239,15 +294,31 @@ use yii\helpers\ArrayHelper;
                             </tr>';
 
                             $blanktd--;
-                        }
+                        }*/
+
+                        /*for ($i=0; $i < 8 ; $i++)
+                        {
+                            echo 
+                            '<tr class="td-item">
+                                <td>&nbsp;</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>';
+                        }*/
                     ?>
                 </tbody>
+                <!-- loop -->
+
+
                 <tfoot>
-                    <tr>
-                        <td colspan="5" class="col-right td-item"><b>TOTAL</b></td>
-                        <td class="col-right td-item"><?= number_format($model['total_pr_amount'], 2) ?></td>
+                    <tr class="td-item">
+                        <td colspan="5" class="col-right"><b>TOTAL</b></td>
+                        <td class="col-right"><?= number_format($model['total_pr_amount'], 2) ?></td>
                     </tr>
-                    <tr>
+                    <tr class="td-item">
                         <td style="border-right: hidden;vertical-align: top"><b>Purpose</b></td>
                         <td colspan="6">
                             <?php 

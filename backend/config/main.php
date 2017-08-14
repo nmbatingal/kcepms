@@ -42,7 +42,7 @@ return [
         'session' => [
             // this is the name of the session cookie used for login on the backend
             //'name' => 'advanced-backend',
-            'timeout' => 300,
+            //'timeout' => 300,
             'name' => 'PHPBACKSESSID',
             'savePath' => sys_get_temp_dir(),
         ],

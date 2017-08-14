@@ -29,7 +29,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => false,
-            'authTimeout' => 300,
+            //'authTimeout' => 300,
             'enableSession' => true,
             'autoRenewCookie' => true,
             'identityCookie' => [
@@ -41,7 +41,7 @@ return [
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             //'name' => 'advanced-frontend',
-            'timeout' => 300,
+            //'timeout' => 300,
             'name' => 'PHPFRONTSESSID',
             'savePath' => sys_get_temp_dir(),
         ],
