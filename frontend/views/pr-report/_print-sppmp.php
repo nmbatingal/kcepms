@@ -274,7 +274,7 @@ use yii\helpers\ArrayHelper;
                     <tbody>
                         <?php
 
-                            $pr_count      = 0;
+                            $pr_count      = 1;
                             $total_request = 0;
                             $label         = '';
                             foreach ($pr_items as $i => $sppmp) {
@@ -304,6 +304,7 @@ use yii\helpers\ArrayHelper;
                                                 <td></td>
                                             </tr>
                                         ';
+                                        $pr_count += 1;
                                     }
                                 }
 
@@ -331,7 +332,11 @@ use yii\helpers\ArrayHelper;
                                         <td class="col-17">'.number_format($sppmp['total_amount'], 2).'</td>
                                     </tr>
                                 ';
+
                                 $pr_count += 1;
+
+                                $item_lines = intval(strlen($sppmp['item_description']) / 75);
+                                $pr_count += $item_lines;
                             }
                             echo '
                                 <td class="col-center"><b>************* nothing follows *************<b></td>
@@ -354,8 +359,24 @@ use yii\helpers\ArrayHelper;
                             ';
 
                             /*** BLANK CELL ROWS ***/
-                            $rows = 16 - $pr_count;
-                            while ( $rows > 0)
+                            //$blanktd = 24 - $pr_count;
+
+                            //************************************************************
+                            $blanktd = 24;
+                            if($pr_count > 24){
+                                $full_page_count = intval($pr_count / 36);
+                                if($full_page_count > 0){
+                                    $rem = intval($pr_count % 36);
+                                    $blanktd -= $rem % $blanktd;
+                                } else{
+                                    $blanktd += 24 - $pr_count;
+                                }
+                            } else{
+                                $blanktd -= $pr_count;
+                            }
+                            //************************************************************
+
+                            while ( $blanktd > 0)
                             {
                                 echo 
                                 '<tr class="td-item">
@@ -378,7 +399,7 @@ use yii\helpers\ArrayHelper;
                                     <td class="col-17"></td>
                                 </tr>';
 
-                                $rows--;
+                                $blanktd--;
                             }
                         ?>
                     </tbody>

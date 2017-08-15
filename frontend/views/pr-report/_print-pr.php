@@ -182,22 +182,23 @@ use yii\helpers\ArrayHelper;
                         foreach ($pr_items as $i => $item) {
                             $id = $i+1;
 
-                            
-                            if ( $label != $item['group_label'] ) {
+                            if(!empty($sppmp['group_label'])) {
+                                if ( $label != $item['group_label'] ) {
 
-                                $label = $item['group_label'];
+                                    $label = $item['group_label'];
 
-                                echo 
-                                "<tr class='td-item'>
-                                    <td></td>
-                                    <td></td>
-                                    <td class='pr-col-item-center'>". $item['group_label'] ."</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>";
+                                    echo 
+                                    "<tr class='td-item'>
+                                        <td></td>
+                                        <td></td>
+                                        <td class='pr-col-item-center'>". $item['group_label'] ."</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>";
 
-                                $pr_count += 1;
+                                    $pr_count += 1;
+                                }
                             }
 
                             echo 

@@ -100,13 +100,14 @@
                     ['label' => 'Purchase Requests', 'icon' => 'wpforms', 'url' => ['tbl-purchase-request/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
 
                     ['label' => 'Budget Assistant', 'options' => ['class' => 'header bg-menu-gray'], 'visible' => !Yii::$app->user->isGuest],
-                    
-                    ['label' => 'Earmark', 'icon' => 'download', 'url' => ['tbl-purchase-request/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+                    ['label' => 'Earmark', 'icon' => 'download', 'url' => ['kc-pre-obligate/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+                    ['label' => 'Pre-Obligate', 'icon' => 'download', 'url' => ['pre-obligate/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
 
                     ['label' => 'Others', 'options' => ['class' => 'header bg-menu-gray'], 'visible' => !Yii::$app->user->isGuest],
 
                     ['label' => 'Items & Supplies', 'icon' => 'cubes', 'url' => ['lib-item/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
                     ['label' => 'Activity Logs', 'icon' => 'file-text', 'url' => ['tbl-logs/index'], 'visible' => !Yii::$app->user->isGuest, 'options' => ['class' => 'btn-left-menu']],
+                    
                     //['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                 ],
