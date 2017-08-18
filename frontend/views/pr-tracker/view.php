@@ -96,8 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'attribute' => 'pr_no',
                 'label'=> 'PR Number',
                 'value'=> function($model) {
-
-                    return Html::a( '<b>'. $model->pr_no .'</b>',
+                    return Html::a( '<b>'. $model->pr_no .'</b> ',
                             Url::toRoute(['pr-report/view', 'id'=>$model['pr_id']]),
                             [
                                 'class'=> 'btn-link-page',
@@ -113,31 +112,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'width' => '100px',
             ],
-            [
-                'attribute' => 'pr_type',
-                'label'  =>'Supplemental',
-                'value'  =>function($model){
-                    $i = $model->pr_type;
-                    if ( $i == 0 ) {
-                        return '';
-                    } else {
-                        return '<i class="fa fa-check-circle-o"></i>';
-                    }
-                },
-                'format' => 'raw',
-                'headerOptions'=>[
-                    'class'=>'kv-align-center kv-align-middle',
-                ],
-                'contentOptions' => [
-                    'class'=>'kv-align-center kv-align-middle text-green',
-                    'style'=>'font-size: 25px',
-                ],
-                'width'=>'80px',
-            ],
             //'purpose',
             [
                 'label'=> 'Purpose',
-                'value'=> 'purpose',
+                'value'=> function($model){
+                    $sppmp = '';
+
+                    if($model['pr_type'] === 1) {
+                        $sppmp = '&nbsp;<span class="label bg-orange">supplemental</span>';
+                    }
+
+                    return $model['purpose'].$sppmp;
+                },
+                'format' => 'raw',
                 'headerOptions'=>[
                     'class'=>'kv-align-center kv-align-middle',
                 ],
